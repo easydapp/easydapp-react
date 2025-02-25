@@ -1,0 +1,99 @@
+.ez-table-view {
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: left;
+    width: 100%;
+
+    tbody {
+        tr {
+            &.active {
+                background: #eef0f3;
+            }
+
+            &:hover {
+                background: #eef0f3;
+            }
+        }
+    }
+
+    &.ez-table-hover {
+        tbody {
+            tr:hover {
+                background: #eef0f3;
+            }
+        }
+    }
+
+    &.ez-table-scroll {
+        overflow-x: auto;
+        padding-bottom: 0.75rem;
+        white-space: nowrap;
+    }
+
+}
+
+.ez-dark {
+    .ez-table-view {
+        tbody {
+            tr {
+                &.active {
+                    background: #000;
+                }
+
+                &:hover {
+                    background: #000;
+                }
+            }
+        }
+
+        &.ez-table-hover {
+            tbody {
+                tr:hover {
+                    background: #000;
+                }
+            }
+        }
+    }
+}
+
+.no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.ez-scrollbar-show {
+    overflow-y: overlay;
+
+    &::-webkit-scrollbar {
+        width: 5px;
+        height: 5px;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        border-radius: 5px;
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        border-radius: 5px;
+        background-color: #ccc;
+        margin-right: 3px;
+    }
+}
+
+.ez-dark {
+    .ez-scrollbar-show {
+        &::-webkit-scrollbar-thumb {
+            background-color: #536e37;
+        }
+    }
+}
+
+.easydapp-card-body {
+    border-radius: 12px;
+}

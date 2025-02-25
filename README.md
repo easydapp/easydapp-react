@@ -1,2 +1,1 @@
-# easydapp-react
-easydapp-react
+# Easydapp React
