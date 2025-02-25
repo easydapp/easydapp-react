@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
 import * as example01 from '../examples/example01';
 import * as example02 from '../examples/example02';
+import * as example03 from '../examples/example03';
 
 export function HomePage() {
     const [count, setCount] = useState(0);
@@ -11,11 +13,10 @@ export function HomePage() {
     const local = [
         ['example01', example01.name],
         ['example02', example02.name],
+        ['example03', example03.name],
     ];
 
-    const [published, setPublished] = useState<
-        { id: number; info: { name: string }; anchor?: string }[]
-    >([]);
+    const [published, setPublished] = useState<{ id: number; info: { name: string }; anchor?: string }[]>([]);
     useEffect(() => {
         fetch('https://app.easydapp.ai/open/query/published/apps')
             .then((d) => d.json())
@@ -48,8 +49,7 @@ export function HomePage() {
                         display: 'flex',
                         flexDirection: 'row',
                         justifyContent: 'space-between',
-                    }}
-                >
+                    }}>
                     <div className="ez-flex ez-flex-col">
                         {published.map((item) => {
                             return (

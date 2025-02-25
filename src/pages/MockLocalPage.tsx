@@ -19,26 +19,19 @@ import { DappAccessView } from '@jellypack/runtime/lib/store/dapp/access';
 import { Publisher, PublisherAnchor } from '@jellypack/runtime/lib/store/publisher';
 import { ApisCheckFunction } from '@jellypack/runtime/lib/wasm';
 import { CodeItem } from '@jellypack/types/lib/code';
-import {
-    check,
-    execute_code,
-    find_origin_codes,
-    parse_func_candid,
-    parse_service_candid,
-} from '@jellypack/wasm-api';
+import { check, execute_code, find_origin_codes, parse_func_candid, parse_service_candid } from '@jellypack/wasm-api';
 import { useCallback, useEffect, useState } from 'react';
 import { useLocation, useParams } from 'react-router-dom';
+
 import { execute_code_by_comlink } from '../../packages/common/execute';
 import { LinkDappView } from '../../packages/dapp';
 import { ThemeBar } from '../components/theme';
 import * as example01 from '../examples/example01';
 import * as example02 from '../examples/example02';
+import * as example03 from '../examples/example03';
 
 const doExecuteByWasm = doExecuteByWasmFactory(execute_code);
-const doExecuteByWasmAndRemoteAndCached = doExecuteByWasmAndRemoteAndCachedFactory(
-    execute_code,
-    doExecuteByRemote,
-);
+const doExecuteByWasmAndRemoteAndCached = doExecuteByWasmAndRemoteAndCachedFactory(execute_code, doExecuteByRemote);
 
 const testExecute = async () => {
     const code = `
@@ -205,20 +198,17 @@ export function MockCombinedPage() {
         },
         [dapp],
     );
-    const upper_query_publisher = useCallback(
-        async (anchor: PublisherAnchor): Promise<Publisher | undefined> => {
-            if (anchor === 'publisher#zhyj6-vaaaa-aaaai-q3luq-cai#1')
-                return {
-                    anchor: 'publisher#zhyj6-vaaaa-aaaai-q3luq-cai#1',
-                    name: 'Test Author',
-                    avatar: '',
-                    bio: '',
-                    social: '',
-                };
-            return proxy_query_publisher(anchor);
-        },
-        [],
-    );
+    const upper_query_publisher = useCallback(async (anchor: PublisherAnchor): Promise<Publisher | undefined> => {
+        if (anchor === 'publisher#zhyj6-vaaaa-aaaai-q3luq-cai#1')
+            return {
+                anchor: 'publisher#zhyj6-vaaaa-aaaai-q3luq-cai#1',
+                name: 'Test Author',
+                avatar: '',
+                bio: '',
+                social: '',
+            };
+        return proxy_query_publisher(anchor);
+    }, []);
     const upper_query_code = useCallback(
         async (anchor: CodeDataAnchor) => {
             if (codes && codes[anchor]) return codes[anchor];
@@ -250,6 +240,8 @@ export function MockCombinedPage() {
                         return [example01.name, example01.icon, example01.combined];
                     case 'example02':
                         return [example02.name, example02.icon, example02.combined];
+                    case 'example03':
+                        return [example03.name, example03.icon, example03.combined];
                 }
                 throw new Error(`wrong name: ${name}`);
             })(),
@@ -277,13 +269,10 @@ export function MockCombinedPage() {
                 <div className="header">
                     {dappMetadata && (
                         <h2 className="ez-h-[30px]">
-                            <img src={dappMetadata.info.icon} /> <div>{dappMetadata.info.name}</div>{' '}
-                            <div></div>
+                            <img src={dappMetadata.info.icon} /> <div>{dappMetadata.info.name}</div> <div></div>
                         </h2>
                     )}
-                    {dappMetadata && (
-                        <h5 style={{ marginBlock: '0.25rem' }}> called: {dappMetadata.called} </h5>
-                    )}
+                    {dappMetadata && <h5 style={{ marginBlock: '0.25rem' }}> called: {dappMetadata.called} </h5>}
                     {publisher && <h4 style={{ marginBlock: '0.25rem' }}> {publisher.name} </h4>}
                 </div>
                 {dapp && combined && codes && apis && (
