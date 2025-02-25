@@ -1,9 +1,5 @@
 import { ComponentId } from '@jellypack/runtime/lib/model/common/identity';
-import {
-    InputValue,
-    match_input_value,
-    refer_value_get_value,
-} from '@jellypack/runtime/lib/model/common/refer';
+import { InputValue, match_input_value, refer_value_get_value } from '@jellypack/runtime/lib/model/common/refer';
 import { match_call_metadata } from '@jellypack/runtime/lib/model/components/call';
 import { match_evm_action } from '@jellypack/runtime/lib/model/components/call/evm/action';
 import { match_ic_action } from '@jellypack/runtime/lib/model/components/call/ic/action';
@@ -83,8 +79,7 @@ export const count_call_item = (runtime: CombinedRuntime): CallItem[] => {
     const calls = runtime.calls().filter((id) => runtime.should_show(id));
     if (calls.length <= 7) {
         const items: CallItem[] = [];
-        for (let i = 0; i < calls.length; i++)
-            items.push(...inner_count_call_item([calls[i]], runtime));
+        for (const call of calls) items.push(...inner_count_call_item([call], runtime));
         return items;
     }
     /// More than 7 merged with similar items
@@ -133,8 +128,7 @@ const inner_count_call_item = (calls: ComponentId[], runtime: CombinedRuntime): 
                         transaction: (transaction) => {
                             const chain = evm.chain;
                             const account = identity?.account ?? '';
-                            const contract =
-                                read_text_input_value(transaction.contract, runtime) ?? '';
+                            const contract = read_text_input_value(transaction.contract, runtime) ?? '';
                             push_evm_transaction(items, data, chain, account, contract);
                         },
                         deploy: () => {
@@ -145,8 +139,7 @@ const inner_count_call_item = (calls: ComponentId[], runtime: CombinedRuntime): 
                         transfer: (transfer) => {
                             const chain = evm.chain;
                             const account = identity?.account ?? '';
-                            const transfer_to =
-                                read_text_input_value(transfer.transfer_to, runtime) ?? '';
+                            const transfer_to = read_text_input_value(transfer.transfer_to, runtime) ?? '';
                             push_evm_transfer(items, data, chain, account, transfer_to);
                         },
                     });
@@ -196,9 +189,7 @@ const inner_count_call_item = (calls: ComponentId[], runtime: CombinedRuntime): 
         if ('http' in item) {
             item.key = `http:[${item.http.list.map((d) => d.id).join(',')}]`;
         } else if ('ic' in item) {
-            item.key = `ic:${item.ic.caller}:${item.ic.canister_id}:[${item.ic.list
-                .map((d) => d.id)
-                .join(',')}]`;
+            item.key = `ic:${item.ic.caller}:${item.ic.canister_id}:[${item.ic.list.map((d) => d.id).join(',')}]`;
         } else if ('evm_call' in item) {
             item.key = `evm_call:${item.evm_call.chain}:${item.evm_call.account}:${
                 item.evm_call.contract
@@ -235,9 +226,7 @@ const push_http = (items: CallItem[], data: CallingData) => {
 };
 
 const push_ic = (items: CallItem[], data: CallingData, caller: string, canister_id: string) => {
-    const item = items.find(
-        (item) => 'ic' in item && item.ic.caller === caller && item.ic.canister_id === canister_id,
-    );
+    const item = items.find((item) => 'ic' in item && item.ic.caller === caller && item.ic.canister_id === canister_id);
     if (item) {
         (item as any).ic.list.push(data);
     } else {
@@ -252,13 +241,7 @@ const push_ic = (items: CallItem[], data: CallingData, caller: string, canister_
     }
 };
 
-const push_evm_call = (
-    items: CallItem[],
-    data: CallingData,
-    chain: EvmChain,
-    account: string,
-    contract: string,
-) => {
+const push_evm_call = (items: CallItem[], data: CallingData, chain: EvmChain, account: string, contract: string) => {
     const item = items.find(
         (item) =>
             'evm_call' in item &&
@@ -310,13 +293,7 @@ const push_evm_transaction = (
     }
 };
 
-const push_evm_sign = (
-    items: CallItem[],
-    data: CallingData,
-    chain: EvmChain,
-    account: string,
-    message: string,
-) => {
+const push_evm_sign = (items: CallItem[], data: CallingData, chain: EvmChain, account: string, message: string) => {
     items.push({
         key: '',
         evm_sign: {
@@ -328,12 +305,7 @@ const push_evm_sign = (
     });
 };
 
-const push_evm_deploy = (
-    items: CallItem[],
-    data: CallingData,
-    chain: EvmChain,
-    account: string,
-) => {
+const push_evm_deploy = (items: CallItem[], data: CallingData, chain: EvmChain, account: string) => {
     items.push({
         key: '',
         evm_deploy: {
@@ -373,10 +345,7 @@ const push_evm_transfer = (
     }
 };
 
-export const read_text_input_value = (
-    value: InputValue,
-    runtime: CombinedRuntime,
-): string | undefined => {
+export const read_text_input_value = (value: InputValue, runtime: CombinedRuntime): string | undefined => {
     return match_input_value<string>(value, {
         constant: (constant) => (constant as any).text,
         refer: (refer) => {

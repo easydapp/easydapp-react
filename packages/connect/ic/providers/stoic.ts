@@ -1,12 +1,13 @@
-import { StoicIdentity } from './ic-stoic-identity';
 import { Actor, HttpAgent } from '@dfinity/agent';
-import type { IConnector } from './types';
+import { IDL } from '@dfinity/candid';
+import { err, ok } from 'neverthrow';
+
 // @ts-expect-ignore
 import stoicLogoLight from '../images/stoic.png';
 // @ts-expect-ignore
 import stoicLogoDark from '../images/stoic.png';
-import { IDL } from '@dfinity/candid';
-import { ok, err } from 'neverthrow';
+import { StoicIdentity } from './ic-stoic-identity';
+import type { IConnector } from './types';
 import { ConnectError, CreateActorError, DisconnectError, InitError } from './types';
 
 export class CustomStoicWallet implements IConnector {
@@ -21,7 +22,7 @@ export class CustomStoicWallet implements IConnector {
     };
 
     #config: {
-        whitelist: Array<string>;
+        whitelist: string[];
         providerUrl: string;
         host: string;
         dev: boolean;

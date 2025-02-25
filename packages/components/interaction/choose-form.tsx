@@ -7,12 +7,13 @@ import {
 } from '@jellypack/runtime/lib/model/components/interaction/choose_form';
 import { CombinedRuntime } from '@jellypack/runtime/lib/runtime';
 import React, { useCallback, useEffect, useState } from 'react';
+
 import Button from '../../common/button';
 
-type ChooseItem = {
+interface ChooseItem {
     name: string;
     value: string;
-};
+}
 
 export function ComponentInteractionChooseFormView({
     runtime,
@@ -42,8 +43,8 @@ export function ComponentInteractionChooseFormView({
 
             // Calculate input value
             let values: ChooseItem[] | undefined = [];
-            for (let i = 0; i < metadata.values.length; i++) {
-                const { name, value: input_value } = metadata.values[i];
+            for (const v of metadata.values) {
+                const { name, value: input_value } = v;
                 const value = runtime.input_value<string>(input_value, ['text']);
                 if (value === undefined) {
                     values = undefined;
@@ -128,9 +129,7 @@ export function ComponentInteractionChooseFormView({
                         <div
                             className="ez-grid ez-grid-cols-2 ez-items-center ez-gap-2"
                             style={{
-                                gridTemplateColumns:
-                                    custom?.style?.gridTemplateColumns ||
-                                    'repeat(2, minmax(0, 1fr))',
+                                gridTemplateColumns: custom?.style?.gridTemplateColumns || 'repeat(2, minmax(0, 1fr))',
                             }}
                         >
                             {values.map((item, index) => (
@@ -146,23 +145,19 @@ export function ComponentInteractionChooseFormView({
                                         fontWeight: custom?.style?.fontWeight || '400',
                                     }}
                                     className={
-                                        (custom?.style?.gridTemplateColumns ===
-                                            'repeat(2, minmax(0, 1fr))' &&
+                                        (custom?.style?.gridTemplateColumns === 'repeat(2, minmax(0, 1fr))' &&
                                             values?.length % 2 === 1 &&
                                             values?.length - 1 === index &&
                                             'ez-col-span-full',
-                                        custom?.style?.gridTemplateColumns ===
-                                            'repeat(3, minmax(0, 1fr))' &&
+                                        custom?.style?.gridTemplateColumns === 'repeat(3, minmax(0, 1fr))' &&
                                             values?.length % 3 === 2 &&
                                             values?.length - 1 === index &&
                                             'ez-col-span-full',
-                                        custom?.style?.gridTemplateColumns ===
-                                            'repeat(3, minmax(0, 1fr))' &&
+                                        custom?.style?.gridTemplateColumns === 'repeat(3, minmax(0, 1fr))' &&
                                             values?.length % 3 === 2 &&
                                             values?.length - 2 === index &&
                                             'ez-col-span-full',
-                                        custom?.style?.gridTemplateColumns ===
-                                            'repeat(3, minmax(0, 1fr))' &&
+                                        custom?.style?.gridTemplateColumns === 'repeat(3, minmax(0, 1fr))' &&
                                             values?.length % 3 === 1 &&
                                             values?.length - 1 === index &&
                                             'ez-col-span-full')

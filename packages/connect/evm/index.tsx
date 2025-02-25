@@ -1,10 +1,8 @@
 import { EvmWallet } from '@jellypack/runtime/lib/model/common/wallet/evm';
-import {
-    ComponentIdentityEvmValue,
-    IdentityEvmMetadata,
-} from '@jellypack/runtime/lib/model/components/identity/evm';
+import { ComponentIdentityEvmValue, IdentityEvmMetadata } from '@jellypack/runtime/lib/model/components/identity/evm';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useAccount, useSwitchChain } from 'wagmi';
+
 import Icon from '../../common/icon';
 import { CustomStorage } from '../../storage';
 import { ConnectSpecialWallet, GetIdentityEvmValue, RainbowMetadata } from '../wallet';
@@ -57,6 +55,7 @@ export function Connect2EvmModal({
     const evm = useCallback(
         async (metadata: IdentityEvmMetadata): Promise<ComponentIdentityEvmValue | undefined> => {
             count += 1;
+            // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
             for (const key in cached) delete cached[key];
             const key = count;
             cached[key] = { show: true };
@@ -96,12 +95,14 @@ export function Connect2EvmModal({
                 interval = setInterval(() => {
                     if (!cached[key] || !cached[key].show) {
                         clearInterval(interval);
+                        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
                         delete cached[key];
                         resolve(undefined);
                     }
                     if (cached[key]?.value) {
                         clearInterval(interval);
                         const value = cached[key].value;
+                        // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
                         delete cached[key];
                         onClose();
                         resolve(value);
@@ -117,12 +118,7 @@ export function Connect2EvmModal({
     }, [setEvm, evm]);
 
     const onChoose = useCallback(
-        (
-            wallet: EvmWallet,
-            type: ConnectType,
-            metadata: EvmConnectedMetadata,
-            rainbow?: RainbowMetadata,
-        ) => {
+        (wallet: EvmWallet, type: ConnectType, metadata: EvmConnectedMetadata, rainbow?: RainbowMetadata) => {
             if (metadata === undefined) return;
 
             if (special_wallet?.evm) {
@@ -172,15 +168,9 @@ export function Connect2EvmModal({
 
     useEffect(() => {
         if (!rainbowInit) return;
-        if (
-            !rainbowAddress ||
-            !rainbowConnector ||
-            !rainbowProvider ||
-            !rainbowSigner ||
-            !switchChain
-        )
-            return;
+        if (!rainbowAddress || !rainbowConnector || !rainbowProvider || !rainbowSigner || !switchChain) return;
         if (rainbowSigner)
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             onChoose(rainbowInit.wallets.find((s) => 'rainbow' in s)!, 'rainbow', rainbowInit, {
                 address: rainbowAddress,
                 connector: rainbowConnector,
@@ -206,12 +196,10 @@ export function Connect2EvmModal({
                     <div className="ez-relative ez-mx-[15px] ez-mb-[17px] ez-flex ez-flex-1 ez-flex-col ez-rounded-2xl ez-bg-white dark:ez-bg-[#222]">
                         <div
                             className="ez-absolute ez-right-[10px] ez-top-[10px] ez-h-6 ez-w-6 ez-cursor-pointer"
-                            onClick={onClose}
-                        >
+                            onClick={onClose}>
                             <Icon
                                 name="icon-close"
-                                className="!ez-h-6 !ez-w-6 ez-text-[#d9d9d9] dark:ez-text-[#666]"
-                            ></Icon>
+                                className="!ez-h-6 !ez-w-6 ez-text-[#d9d9d9] dark:ez-text-[#666]"></Icon>
                         </div>
                         <div className="ez-mt-[17px] ez-flex ez-items-center ez-justify-center ez-text-center ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-leading-[18px] ez-text-black dark:ez-text-white">
                             Connect to {metadata?.metadata.chain}
@@ -219,9 +207,7 @@ export function Connect2EvmModal({
                         <div className="ez-mb-3 ez-mt-[33px] ez-flex ez-items-center ez-justify-center">
                             <div className="ez-mx-5 ez-mb-3 ez-flex ez-w-full ez-flex-col ez-items-center ez-justify-center ez-gap-y-4">
                                 {metadata?.wallets &&
-                                    CONNECTED_TYPES.filter((t) =>
-                                        metadata.wallets.find((s) => t in s),
-                                    ).map((type) => (
+                                    CONNECTED_TYPES.filter((t) => metadata.wallets.find((s) => t in s)).map((type) => (
                                         <div key={type} className="ez-w-full">
                                             {type === 'rainbow' && !is_wrapped_rainbow && (
                                                 <RainbowConnectButton
@@ -234,20 +220,17 @@ export function Connect2EvmModal({
                                                 />
                                             )}
 
-                                            {(type === 'metamask' ||
-                                                (type === 'rainbow' && is_wrapped_rainbow)) && (
+                                            {(type === 'metamask' || (type === 'rainbow' && is_wrapped_rainbow)) && (
                                                 <div
                                                     className="ez-flex ez-h-11 ez-w-full ez-cursor-pointer ez-items-center ez-justify-start ez-rounded-[10px] !ez-border ez-border-solid ez-border-[#dddddd] dark:ez-border-[#333]"
                                                     onClick={() =>
                                                         onChoose(
-                                                            metadata.wallets.find(
-                                                                (s) => type in s,
-                                                            )!,
+                                                            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+                                                            metadata.wallets.find((s) => type in s)!,
                                                             type,
                                                             metadata,
                                                         )
-                                                    }
-                                                >
+                                                    }>
                                                     <div className="ez-ml-[15px] ez-flex ez-h-[25px] ez-w-[25px] ez-items-center ez-justify-center ez-rounded-[6px] ez-bg-[#F8F8F8]">
                                                         <img
                                                             src={images[type]}
