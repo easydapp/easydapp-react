@@ -1,11 +1,9 @@
 import { EvmWallet } from '@jellypack/runtime/lib/model/common/wallet/evm';
-import {
-    ComponentIdentityEvmValue,
-    IdentityEvmMetadata,
-} from '@jellypack/runtime/lib/model/components/identity/evm';
+import { ComponentIdentityEvmValue, IdentityEvmMetadata } from '@jellypack/runtime/lib/model/components/identity/evm';
 import { get_evm_chain_id_by_chain } from '@jellypack/runtime/lib/model/types/evm';
 import { ethers } from 'ethers';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { CustomStorage } from '../../storage';
 import { KEY_SINGLE_CONNECTED_RECORDS } from '../../storage/keys';
 import { RainbowMetadata } from '../wallet';
@@ -17,19 +15,19 @@ export const CONNECTED_TYPES: ConnectType[] = [
     'rainbow', // is_rainbow_supported
 ];
 
-export type SingleConnectedRecord = {
+export interface SingleConnectedRecord {
     t: ConnectType; // Login method
     a: string; // Log in account
     c: number; // Login time, every time you log in, save it
-};
+}
 
-type ConnectedRecord = {
+interface ConnectedRecord {
     type: ConnectType;
     connected: number;
     all_connected: number;
     latest_account: string;
     latest: number;
-};
+}
 
 const doConnect = async (
     wallet: EvmWallet,

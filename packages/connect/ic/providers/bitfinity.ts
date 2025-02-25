@@ -1,32 +1,30 @@
 // cSpell:disable
-import type { IConnector } from './types';
 import type { ActorSubclass, Agent } from '@dfinity/agent';
 import type { IDL } from '@dfinity/candid';
+import type { Principal } from '@dfinity/principal';
+import { err, ok } from 'neverthrow';
+
 // @ts-expect-ignore
 import infinityLogoLight from '../images/infinity.png';
 // @ts-expect-ignore
 import infinityLogoDark from '../images/infinity.png';
-import type { Principal } from '@dfinity/principal';
-import { err, ok } from 'neverthrow';
+import type { IConnector } from './types';
 import { ConnectError, CreateActorError, DisconnectError, InitError } from './types';
 
-type Config = {
-    whitelist: Array<string>;
+interface Config {
+    whitelist: string[];
     host: string;
     dev: boolean;
-};
+}
 
-type IC = {
-    createActor: <T>(args: {
-        canisterId: string;
-        interfaceFactory: IDL.InterfaceFactory;
-    }) => Promise<ActorSubclass<T>>;
+interface IC {
+    createActor: <T>(args: { canisterId: string; interfaceFactory: IDL.InterfaceFactory }) => Promise<ActorSubclass<T>>;
     agent: Agent;
     getPrincipal: () => Promise<Principal>;
     isConnected: () => Promise<boolean>;
     disconnect: () => Promise<any>;
     requestConnect: (config: Config) => Promise<boolean>;
-};
+}
 
 export class CustomBitfinityWallet implements IConnector {
     public meta = {

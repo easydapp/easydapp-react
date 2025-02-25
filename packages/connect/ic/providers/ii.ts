@@ -3,15 +3,10 @@ import { Actor, HttpAgent } from '@dfinity/agent';
 import { AuthClient } from '@dfinity/auth-client';
 import { IDL } from '@dfinity/candid';
 import { err, ok } from 'neverthrow';
+
 import dfinityLogoLight from './svg/dfinity.min.svg';
 import dfinityLogoDark from './svg/dfinity.min.svg';
-import {
-    ConnectError,
-    CreateActorError,
-    DisconnectError,
-    iiDerivationOrigin,
-    InitError,
-} from './types';
+import { ConnectError, CreateActorError, DisconnectError, iiDerivationOrigin, InitError } from './types';
 
 // Get the pop -up size of II
 export const getIIFrame = (): string => {
@@ -25,14 +20,14 @@ export const getIIFrame = (): string => {
 };
 
 // Set type
-type InternetIdentityConfig = {
-    whitelist: Array<string>;
+interface InternetIdentityConfig {
+    whitelist: string[];
     host: string;
     providerUrl: string;
     dev: boolean;
     derivationOrigin?: string;
     windowOpenerFeatures?: string;
-};
+}
 
 // Custom II login object
 export class CustomInternetIdentity {

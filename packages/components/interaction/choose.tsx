@@ -62,8 +62,8 @@ export function ComponentInteractionChooseView({
 
             // Calculate input value
             let values: ChooseItem[] | undefined = [];
-            for (let i = 0; i < metadata.values.length; i++) {
-                const { name, value: input_value } = metadata.values[i];
+            for (const v of metadata.values) {
+                const { name, value: input_value } = v;
                 const value = runtime.input_value<string>(input_value, ['text']);
                 if (value === undefined) {
                     values = undefined;

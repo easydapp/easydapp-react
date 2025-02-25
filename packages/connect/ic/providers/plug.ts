@@ -5,6 +5,7 @@ import { PlugInterface } from '@jellypack/runtime/lib/model/components/identity/
 //import { ActorCreator } from '@jellypack/runtime/lib/model/components/identity/ic/types';
 import { principal2account_id } from '@jellypack/types/lib/open/open-ic';
 import { err, ok } from 'neverthrow';
+
 import plugLogoDark from './svg/plug-dark.min.svg';
 import plugLogoLight from './svg/plug-light.min.svg';
 import { ConnectError, CreateActorError, DisconnectError, InitError } from './types';
@@ -30,7 +31,7 @@ export class CustomPlugWallet {
     };
 
     #config: {
-        whitelist: Array<string>;
+        whitelist: string[];
         host: string;
         dev: boolean;
     };
@@ -121,8 +122,8 @@ export class CustomPlugWallet {
 
                 this.#principal = (await this.#ic.agent.getPrincipal()).toText();
                 this.#wallet = {
-                    principal: this.#principal!,
-                    accountId: principal2account_id(this.#principal!),
+                    principal: this.#principal,
+                    accountId: principal2account_id(this.#principal),
                 };
 
                 console.warn('plug status connected', this.#wallet);
@@ -224,12 +225,14 @@ export class CustomPlugWallet {
             }
 
             return new Promise((resolve, reject) => {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 this.#ic!.requestConnect({
                     whitelist: [],
                     timeout: 60000,
                 })
                     .then((publicKey) => {
                         console.debug('got plug public key', publicKey);
+                        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                         const agent = this.#ic!.agent;
                         if (!agent) throw new Error('agent must be valid.');
                         // this.#agent = agent;

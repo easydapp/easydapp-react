@@ -1,10 +1,10 @@
 // cSpell:disable
-import { Principal } from '@dfinity/principal';
-import { requestIdOf, Signature } from '@dfinity/agent';
-// import { Cbor } from '@dfinity/agent';
-import { SignIdentity } from '@dfinity/agent';
-import { DelegationChain } from '@dfinity/identity';
 import { Buffer } from 'buffer';
+// import { Cbor } from '@dfinity/agent';
+import { requestIdOf, Signature, SignIdentity } from '@dfinity/agent';
+import { DelegationChain } from '@dfinity/identity';
+import { Principal } from '@dfinity/principal';
+
 // window.Buffer = Buffer;
 const domainSeparator = Buffer.from(new TextEncoder().encode('\x0Aic-request'));
 let _stoicOrigin = 'https://www.stoicwallet.com';
@@ -90,23 +90,13 @@ export class StoicIdentity extends SignIdentity {
     }
 
     _transport(data: any) {
-        return _stoicSign(
-            'sign',
-            data,
-            this.getPrincipal().toText(),
-            StoicIdentity._transportMethod,
-        );
+        return _stoicSign('sign', data, this.getPrincipal().toText(), StoicIdentity._transportMethod);
     }
 
     accounts(force: any) {
         return new Promise((resolve, reject) => {
             if (!this._accounts.length || force) {
-                _stoicSign(
-                    'accounts',
-                    'accounts',
-                    this.getPrincipal().toText(),
-                    StoicIdentity._transportMethod,
-                )
+                _stoicSign('accounts', 'accounts', this.getPrincipal().toText(), StoicIdentity._transportMethod)
                     .then((accounts) => {
                         this._accounts = accounts;
                         resolve(this._accounts);
@@ -134,11 +124,7 @@ export class StoicIdentity extends SignIdentity {
                     const result = JSON.parse(
                         (await _stoicSign(
                             'sign',
-                            buf2hex(
-                                Buffer.from(
-                                    Buffer.concat([domainSeparator, new Uint8Array(requestId)]),
-                                ),
-                            ),
+                            buf2hex(Buffer.from(Buffer.concat([domainSeparator, new Uint8Array(requestId)]))),
                             this.getPrincipal().toText(),
                             StoicIdentity._transportMethod,
                             request.endpoint,
@@ -203,14 +189,7 @@ const _stoicLogin = () => {
     });
 };
 
-const _stoicSign = (
-    action: any,
-    payload: any,
-    principal: any,
-    transport: any,
-    endpoint = 'unknown',
-    requestId = 0,
-) => {
+const _stoicSign = (action: any, payload: any, principal: any, transport: any, endpoint = 'unknown', requestId = 0) => {
     return new Promise(function (resolve, reject) {
         (async () => {
             // Prepare the data to be sent
@@ -287,7 +266,9 @@ function _removeFrame(id: any) {
     } else if (_openConnections[id].type === 'popup') {
         _openConnections[id].target.close();
     }
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete _openConnections[id];
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete _listener[id];
 }
 
@@ -401,10 +382,7 @@ window.addEventListener(
                     const connection = _openConnections[e.data.listener];
                     connection.target.postMessage(connection.data, '*');
                 } else if (e.data.action == 'initiateStoicConnect') {
-                    _stoicWindow.postMessage(
-                        { action: 'requestAuthorization', apikey: _stoicApiKey },
-                        '*',
-                    );
+                    _stoicWindow.postMessage({ action: 'requestAuthorization', apikey: _stoicApiKey }, '*');
                 } else if (e.data.action == 'rejectAuthorization') {
                     _stoicWindowCB[1]('Authorization Rejected');
                     _stoicWindowCB = null;

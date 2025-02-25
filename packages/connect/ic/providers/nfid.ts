@@ -2,15 +2,10 @@ import { Actor, HttpAgent } from '@dfinity/agent';
 import { AuthClient } from '@dfinity/auth-client';
 import { IDL } from '@dfinity/candid';
 import { err, ok } from 'neverthrow';
+
 import nfidLogoLight from './svg/nfid.min.svg';
 import nfidLogoDark from './svg/nfid.min.svg';
-import {
-    ConnectError,
-    CreateActorError,
-    DisconnectError,
-    iiDerivationOrigin,
-    InitError,
-} from './types';
+import { ConnectError, CreateActorError, DisconnectError, iiDerivationOrigin, InitError } from './types';
 
 // Get the pop -up size of NFID
 export const getNFIDFrame = (): string => {
@@ -24,15 +19,15 @@ export const getNFIDFrame = (): string => {
 };
 
 // Set type
-type NFIDConfig = {
-    whitelist: Array<string>;
+interface NFIDConfig {
+    whitelist: string[];
     appName: string;
     host: string;
     providerUrl: string;
     dev: boolean;
     derivationOrigin?: string;
     windowOpenerFeatures?: string;
-};
+}
 
 export class CustomNFID {
     public meta = {
@@ -159,8 +154,7 @@ export class CustomNFID {
                 this.#client.login({
                     // TODO: local
                     identityProvider:
-                        this.#config.providerUrl +
-                        `/authenticate/?applicationName=${this.#config.appName}`,
+                        this.#config.providerUrl + `/authenticate/?applicationName=${this.#config.appName}`,
                     onSuccess: resolve,
                     onError: reject,
                     windowOpenerFeatures: this.#config.windowOpenerFeatures

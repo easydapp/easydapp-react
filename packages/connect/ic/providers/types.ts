@@ -6,7 +6,10 @@ export const iiDerivationOrigin = location.origin.includes('easydapp.ai')
     ? 'https://fyhem-pyaaa-aaaai-q3jwa-cai.icp0.io/'
     : undefined;
 
-type CustomError<T> = { kind: T; message?: string };
+interface CustomError<T> {
+    kind: T;
+    message?: string;
+}
 
 export enum CreateActorError {
     FetchRootKeyFailed = 'FETCH_ROOT_KEY_FAILED',
@@ -15,10 +18,7 @@ export enum CreateActorError {
     LocalActorsNotSupported = 'LOCAL_ACTORS_NOT_SUPPORTED',
 }
 
-export type CreateActorResult<Service> = Result<
-    ActorSubclass<Service>,
-    CustomError<CreateActorError>
->;
+export type CreateActorResult<Service> = Result<ActorSubclass<Service>, CustomError<CreateActorError>>;
 
 export enum ConnectError {
     NotInitialized = 'NOT_INITIALIZED',
@@ -48,7 +48,7 @@ export interface IConnector {
     init: () => Promise<InitResult>;
     config: any;
     meta: {
-        features: Array<string>;
+        features: string[];
         icon: {
             light: string;
             dark: string;
@@ -62,7 +62,7 @@ export interface IConnector {
         interfaceFactory: IDL.InterfaceFactory,
         // config?: {},
     ) => Promise<CreateActorResult<Service>>;
-    connect: (options?: { delegationModes: Array<string> }) => Promise<ConnectResult>;
+    connect: (options?: { delegationModes: string[] }) => Promise<ConnectResult>;
     disconnect: () => Promise<DisconnectResult>;
     principal?: string;
 }
@@ -73,14 +73,14 @@ export enum BalanceError {
 }
 
 export type BalanceResult = Result<
-    Array<{
+    {
         amount: number;
         canisterId: string;
         decimals: number;
         image?: string;
         name: string;
         symbol: string;
-    }>,
+    }[],
     CustomError<BalanceError>
 >;
 
@@ -90,14 +90,14 @@ export enum TokensError {
 }
 
 export type TokensResult = Result<
-    Array<{
+    {
         amount: number;
         canisterId: string;
         decimals: number;
         image?: string;
         name: string;
         symbol: string;
-    }>,
+    }[],
     CustomError<TokensError>
 >;
 
@@ -107,14 +107,14 @@ export enum NFTsError {
 }
 
 export type NFTsResult = Result<
-    Array<{
+    {
         amount: number;
         canisterId: string;
         decimals: number;
         image?: string;
         name: string;
         symbol: string;
-    }>,
+    }[],
     CustomError<NFTsError>
 >;
 
@@ -127,10 +127,7 @@ export enum TransferError {
     NotConnected = 'NOT_CONNECTED',
 }
 
-export type TransferResult = Result<
-    { height?: number; transactionId?: string },
-    CustomError<TransferError>
->;
+export type TransferResult = Result<{ height?: number; transactionId?: string }, CustomError<TransferError>>;
 export type NFTTransferResult = Result<{ transactionId?: string }, CustomError<TransferError>>;
 
 export enum SignError {
@@ -163,10 +160,10 @@ export interface IWalletConnector {
         createdAtTime?: Date;
         fromSubAccount?: number;
     }) => Promise<NFTTransferResult>;
-    wallets: Array<{
+    wallets: {
         accountId: string;
         principal: string;
-    }>;
+    }[];
     queryBalance: () => Promise<BalanceResult>;
     // queryTokens: () => Promise<TokensResult>
     // queryNFTs: () => Promise<NFTsResult>
