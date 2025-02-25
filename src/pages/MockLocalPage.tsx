@@ -28,7 +28,6 @@ import { LinkDappView } from '../../packages/dapp';
 import { ThemeBar } from '../components/theme';
 import * as example01 from '../examples/example01';
 import * as example02 from '../examples/example02';
-import * as example03 from '../examples/example03';
 
 const doExecuteByWasm = doExecuteByWasmFactory(execute_code);
 const doExecuteByWasmAndRemoteAndCached = doExecuteByWasmAndRemoteAndCachedFactory(execute_code, doExecuteByRemote);
@@ -240,8 +239,6 @@ export function MockCombinedPage() {
                         return [example01.name, example01.icon, example01.combined];
                     case 'example02':
                         return [example02.name, example02.icon, example02.combined];
-                    case 'example03':
-                        return [example03.name, example03.icon, example03.combined];
                 }
                 throw new Error(`wrong name: ${name}`);
             })(),
