@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+
 import reactLogo from '../assets/react.svg';
 import viteLogo from '../assets/vite.svg';
 import * as example01 from '../examples/example01';
@@ -13,9 +14,7 @@ export function HomePage() {
         ['example02', example02.name],
     ];
 
-    const [published, setPublished] = useState<
-        { id: number; info: { name: string }; anchor?: string }[]
-    >([]);
+    const [published, setPublished] = useState<{ id: number; info: { name: string }; anchor?: string }[]>([]);
     useEffect(() => {
         fetch('https://app.easydapp.ai/open/query/published/apps')
             .then((d) => d.json())

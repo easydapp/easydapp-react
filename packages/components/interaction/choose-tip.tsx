@@ -7,8 +7,11 @@ import {
 } from '@jellypack/runtime/lib/model/components/interaction/choose_tip';
 import { CombinedRuntime } from '@jellypack/runtime/lib/runtime';
 import Select, { Option } from 'rc-select';
+
 import '../../assets/css/rc-select.scss';
-import { useCallback, useEffect, useRef, useState } from 'react';
+
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+
 import Icon from '../../common/icon';
 
 export function ComponentInteractionChooseTipView({
@@ -35,9 +38,7 @@ export function ComponentInteractionChooseTipView({
             setValue(value?.value);
 
             // Calculate input value
-            const values: string[] | undefined = runtime.input_value<string[]>(metadata.values, [
-                { array: 'text' },
-            ]);
+            const values: string[] | undefined = runtime.input_value<string[]>(metadata.values, [{ array: 'text' }]);
             let tips: string[] | undefined = undefined;
             if (metadata.tips) {
                 tips = runtime.input_value<string[]>(metadata.tips, [{ array: 'text' }]);
@@ -71,8 +72,7 @@ export function ComponentInteractionChooseTipView({
             style={{
                 paddingTop: custom?.style?.paddingTop || '5px',
                 paddingBottom: custom?.style?.paddingBottom || '5px',
-            }}
-        >
+            }}>
             {
                 // Already output
                 values !== undefined && value !== undefined && (
@@ -85,8 +85,7 @@ export function ComponentInteractionChooseTipView({
                             <div onClick={onClean}>
                                 <Icon
                                     className="!ez-h-4 !ez-w-4 ez-cursor-pointer ez-text-[#999]"
-                                    name="icon-close"
-                                ></Icon>
+                                    name="icon-close"></Icon>
                             </div>
                         </div>
                     </div>
@@ -100,18 +99,14 @@ export function ComponentInteractionChooseTipView({
                         {values && (
                             <div
                                 className={`ez-select ez-relative ez-flex ez-h-11 !ez-w-full ez-flex-shrink-0 ez-flex-col`}
-                                ref={dropdownContainer}
-                            >
+                                ref={dropdownContainer}>
                                 <Select
                                     className="!ez-w-full"
                                     placeholder={custom?.placeholder}
-                                    getPopupContainer={() =>
-                                        dropdownContainer.current || document.body
-                                    }
+                                    getPopupContainer={() => dropdownContainer.current || document.body}
                                     onChange={(e) => {
                                         onChoose(Number(e));
-                                    }}
-                                >
+                                    }}>
                                     {values[0].map((item, index) => (
                                         <Option key={index}>
                                             <div className="ez-flex ez-h-[30px] ez-cursor-pointer ez-items-center ez-justify-between ez-px-[0px]">
