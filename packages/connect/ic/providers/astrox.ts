@@ -3,6 +3,7 @@ import { DelegationMode } from '@astrox/sdk-web/build/types';
 import type { ActorSubclass, Identity } from '@dfinity/agent';
 import type { IDL } from '@dfinity/candid';
 import { err, ok, Result } from 'neverthrow';
+
 // @ts-expect-ignore
 import astroXLogoLight from './svg/astrox_light.svg';
 // @ts-expect-ignore
@@ -47,14 +48,14 @@ export class CustomAstroX implements IConnector, IWalletConnector {
     };
 
     #config: {
-        whitelist: Array<string>;
+        whitelist: string[];
         providerUrl: string;
         ledgerCanisterId: string;
         ledgerHost?: string;
         noUnify?: boolean;
         host: string;
         dev: boolean;
-        delegationModes?: Array<DelegationMode>;
+        delegationModes?: DelegationMode[];
         customDomain?: string;
     };
     #identity?: Identity;
@@ -222,7 +223,7 @@ export class CustomAstroX implements IConnector, IWalletConnector {
         standard?: string;
         decimals?: number;
         fee?: number;
-        memo?: bigint | Array<number>;
+        memo?: bigint | number[];
         createdAtTime?: Date;
         fromSubAccount?: number;
     }) {

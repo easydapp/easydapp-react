@@ -1,22 +1,15 @@
-import type { IDL } from '@dfinity/candid';
-import type { ActorSubclass } from '@dfinity/agent';
-import type { IConnector, IWalletConnector } from './types';
 import { AstroXWebViewHandler } from '@astrox/sdk-webview';
+import { DelegationMode, TransactionMessageKind } from '@astrox/sdk-webview/build/types';
+import type { ActorSubclass } from '@dfinity/agent';
+import type { IDL } from '@dfinity/candid';
+import { err, ok, Result } from 'neverthrow';
+
 // @ts-expect-ignore
 import astroXLogoLight from './svg/astrox_light.svg';
 // @ts-expect-ignore
 import astroXLogoDark from './svg/astrox.png';
-import { ok, err, Result } from 'neverthrow';
-import {
-    BalanceError,
-    ConnectError,
-    CreateActorError,
-    DisconnectError,
-    InitError,
-    TransferError,
-} from './types';
-import { TransactionMessageKind } from '@astrox/sdk-webview/build/types';
-import { DelegationMode } from '@astrox/sdk-webview/build/types';
+import type { IConnector, IWalletConnector } from './types';
+import { BalanceError, ConnectError, CreateActorError, DisconnectError, InitError, TransferError } from './types';
 
 export class CustomICX implements IConnector, IWalletConnector {
     public meta = {
@@ -30,27 +23,27 @@ export class CustomICX implements IConnector, IWalletConnector {
     };
 
     #config: {
-        whitelist: Array<string>;
+        whitelist: string[];
         providerUrl: string;
         ledgerCanisterId: string;
         ledgerHost?: string;
         host: string;
         dev: boolean;
         noUnify?: boolean;
-        delegationModes?: Array<DelegationMode>;
+        delegationModes?: DelegationMode[];
         customDomain?: string;
     };
     #ic: AstroXWebViewHandler;
     #principal?: string;
 
-    #supportedTokenList: Array<{
+    #supportedTokenList: {
         symbol: string;
         standard: string;
         decimals: number;
         fee: string;
         name: string;
         canisterId: string;
-    }> = [];
+    }[] = [];
     #wallet?: {
         principal: string;
         accountId: string;
@@ -96,9 +89,11 @@ export class CustomICX implements IConnector, IWalletConnector {
             const isConnected = await this.isConnected();
             // TODO: never connected
             if (isConnected) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 this.#principal = this.#ic.getPrincipal()!.toText();
                 this.#wallet = this.#ic.wallet;
                 if (this.#config.dev) {
+                    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                     await this.#ic.agent!.fetchRootKey();
                 }
             }
@@ -158,9 +153,11 @@ export class CustomICX implements IConnector, IWalletConnector {
                 noUnify: this.#config.noUnify,
                 customDomain: this.#config.customDomain,
             });
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             this.#principal = this.#ic.getPrincipal()!.toText();
             this.#wallet = this.#ic.wallet;
             if (this.#config.dev) {
+                // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
                 await this.#ic.agent!.fetchRootKey();
             }
             return ok(true);
@@ -241,7 +238,7 @@ export class CustomICX implements IConnector, IWalletConnector {
         standard?: string;
         decimals?: number;
         fee?: number;
-        memo?: bigint | Array<number>;
+        memo?: bigint | number[];
         createdAtTime?: Date;
         fromSubAccount?: number;
     }) {
@@ -257,9 +254,7 @@ export class CustomICX implements IConnector, IWalletConnector {
             fromSubAccount = 0,
         } = opts;
         try {
-            const tokenInfo = this.#supportedTokenList.find(
-                ({ symbol: tokenSymbol }) => symbol === tokenSymbol,
-            );
+            const tokenInfo = this.#supportedTokenList.find(({ symbol: tokenSymbol }) => symbol === tokenSymbol);
             if (!tokenInfo) {
                 return err({ kind: TransferError.TokenNotSupported });
             }
@@ -285,9 +280,7 @@ export class CustomICX implements IConnector, IWalletConnector {
             if (response.kind === TransactionMessageKind.success) {
                 return ok({
                     ...(response as any).payload,
-                    height:
-                        (response as any).payload.blockHeight ??
-                        Number((response as any).payload.blockHeight),
+                    height: (response as any).payload.blockHeight ?? Number((response as any).payload.blockHeight),
                 });
             }
             return err({ kind: TransferError.TransferFailed });

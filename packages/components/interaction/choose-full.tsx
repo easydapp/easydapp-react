@@ -7,12 +7,13 @@ import {
 } from '@jellypack/runtime/lib/model/components/interaction/choose_full';
 import { CombinedRuntime } from '@jellypack/runtime/lib/runtime';
 import React, { useCallback, useEffect, useState } from 'react';
+
 import Button from '../../common/button';
 
-type ChooseItem = {
+interface ChooseItem {
     option: string;
     value: string;
-};
+}
 
 export function ComponentInteractionChooseFullView({
     runtime,
@@ -39,19 +40,16 @@ export function ComponentInteractionChooseFullView({
             setValue(value?.value);
 
             // Calculate input value
-            const values: ChooseItem[] | undefined = runtime.input_value<ChooseItem[]>(
-                metadata.values,
-                [
-                    {
-                        array: {
-                            object: [
-                                { key: 'option', ty: 'text' },
-                                { key: 'value', ty: 'text' },
-                            ],
-                        },
+            const values: ChooseItem[] | undefined = runtime.input_value<ChooseItem[]>(metadata.values, [
+                {
+                    array: {
+                        object: [
+                            { key: 'option', ty: 'text' },
+                            { key: 'value', ty: 'text' },
+                        ],
                     },
-                ],
-            );
+                },
+            ]);
             setValues(values);
         }
 
@@ -132,9 +130,7 @@ export function ComponentInteractionChooseFullView({
                         <div
                             className="ez-grid ez-grid-cols-2 ez-items-center ez-gap-2"
                             style={{
-                                gridTemplateColumns:
-                                    custom?.style?.gridTemplateColumns ||
-                                    'repeat(2, minmax(0, 1fr))',
+                                gridTemplateColumns: custom?.style?.gridTemplateColumns || 'repeat(2, minmax(0, 1fr))',
                             }}
                         >
                             {values.map((item, index) => (
@@ -150,23 +146,19 @@ export function ComponentInteractionChooseFullView({
                                         fontWeight: custom?.style?.fontWeight || '400',
                                     }}
                                     className={
-                                        (custom?.style?.gridTemplateColumns ===
-                                            'repeat(2, minmax(0, 1fr))' &&
+                                        (custom?.style?.gridTemplateColumns === 'repeat(2, minmax(0, 1fr))' &&
                                             values?.length % 2 === 1 &&
                                             values?.length - 1 === index &&
                                             'ez-col-span-full',
-                                        custom?.style?.gridTemplateColumns ===
-                                            'repeat(3, minmax(0, 1fr))' &&
+                                        custom?.style?.gridTemplateColumns === 'repeat(3, minmax(0, 1fr))' &&
                                             values?.length % 3 === 2 &&
                                             values?.length - 1 === index &&
                                             'ez-col-span-full',
-                                        custom?.style?.gridTemplateColumns ===
-                                            'repeat(3, minmax(0, 1fr))' &&
+                                        custom?.style?.gridTemplateColumns === 'repeat(3, minmax(0, 1fr))' &&
                                             values?.length % 3 === 2 &&
                                             values?.length - 2 === index &&
                                             'ez-col-span-full',
-                                        custom?.style?.gridTemplateColumns ===
-                                            'repeat(3, minmax(0, 1fr))' &&
+                                        custom?.style?.gridTemplateColumns === 'repeat(3, minmax(0, 1fr))' &&
                                             values?.length % 3 === 1 &&
                                             values?.length - 1 === index &&
                                             'ez-col-span-full')

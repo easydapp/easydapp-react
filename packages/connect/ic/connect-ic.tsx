@@ -5,6 +5,7 @@ import { ComponentIdentityIcValue } from '@jellypack/runtime/lib/model/component
 import { ActorCreator } from '@jellypack/runtime/lib/model/components/identity/ic/types';
 import { principal2account_id } from '@jellypack/types/lib/open/open-ic';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { CustomStorage } from '../../storage';
 import { KEY_SINGLE_CONNECTED_RECORDS } from '../../storage/keys';
 import { CustomAstroX } from './providers/astrox';
@@ -19,10 +20,7 @@ import { IConnector } from './providers/types';
 // connect2ic provide activeProvider
 export const getActorCreatorByActiveProvider = (activeProvider: IConnector): ActorCreator => {
     return async <T,>(idlFactory: IDL.InterfaceFactory, canisterId: string) => {
-        const result = await activeProvider.createActor<ActorSubclass<T>>(
-            canisterId,
-            idlFactory as any,
-        );
+        const result = await activeProvider.createActor<ActorSubclass<T>>(canisterId, idlFactory as any);
         if (result.isOk()) return result.value;
         if (result?.error?.message) throw new Error(result.error.message);
         if (result?.error?.kind) throw new Error(result.error.kind);
@@ -42,19 +40,19 @@ export const CONNECTED_TYPES: ConnectType[] = [
     'plug',
 ];
 
-export type SingleConnectedRecord = {
+export interface SingleConnectedRecord {
     t: ConnectType; // Login method
     o: string; // Log in Principal
     c: number; // Login time, every time you log in, save it
-};
+}
 
-type ConnectedRecord = {
+interface ConnectedRecord {
     type: ConnectType;
     connected: number;
     all_connected: number;
     latest_owner: string;
     latest: number;
-};
+}
 
 const astroXProvider = () =>
     (window as any).icx
