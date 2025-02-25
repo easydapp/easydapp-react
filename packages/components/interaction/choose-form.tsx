@@ -99,7 +99,8 @@ export function ComponentInteractionChooseFormView({
             style={{
                 paddingTop: custom?.style?.paddingTop || '5px',
                 paddingBottom: custom?.style?.paddingBottom || '5px',
-            }}>
+            }}
+        >
             {
                 // Already determined parameters
                 values !== undefined && value !== undefined && (
@@ -109,7 +110,8 @@ export function ComponentInteractionChooseFormView({
                         </div>
                         <div
                             onClick={() => onClean()}
-                            className="ez-flex ez-h-[24px] ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-md !ez-border-[1px] ez-border-[#dddddd] ez-px-[6px] ez-py-[3px] ez-text-xs ez-text-[#999999] ez-duration-75 hover:!ez-border-[#000] hover:ez-text-[#000]">
+                            className="ez-flex ez-h-[24px] ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-md !ez-border-[1px] ez-border-[#dddddd] ez-px-[6px] ez-py-[3px] ez-text-xs ez-text-[#999999] ez-duration-75 hover:!ez-border-[#000] hover:ez-text-[#000]"
+                        >
                             <Icon className="ez-mr-[5px] ez-h-3 ez-w-3" name="icon-refresh"></Icon>
                             Reset
                         </div>
@@ -137,7 +139,8 @@ export function ComponentInteractionChooseFormView({
                             className="ez-grid ez-grid-cols-2 ez-items-center ez-gap-2"
                             style={{
                                 gridTemplateColumns: custom?.style?.gridTemplateColumns || 'repeat(2, minmax(0, 1fr))',
-                            }}>
+                            }}
+                        >
                             {values.map((item, index) => (
                                 <Button
                                     key={index}
@@ -167,7 +170,8 @@ export function ComponentInteractionChooseFormView({
                                             values?.length % 3 === 1 &&
                                             values?.length - 1 === index &&
                                             'ez-col-span-full')
-                                    }></Button>
+                                    }
+                                ></Button>
                             ))}
                         </div>
 
@@ -177,7 +181,8 @@ export function ComponentInteractionChooseFormView({
                                     className="ez-flex ez-h-full ez-flex-1 ez-bg-transparent ez-text-black ez-outline-none dark:ez-text-white"
                                     defaultValue={inputValue}
                                     onChange={onChange}
-                                    placeholder={custom?.formPlaceholder}></input>
+                                    placeholder={custom?.formPlaceholder}
+                                ></input>
                             </div>
 
                             {error && (
@@ -196,7 +201,8 @@ export function ComponentInteractionChooseFormView({
                                         backgroundColor: custom?.style?.backgroundColor,
                                         borderRadius: custom?.style?.borderRadius || '0.5rem',
                                         fontWeight: custom?.style?.fontWeight || '400',
-                                    }}></Button>
+                                    }}
+                                ></Button>
                             )}
                         </div>
                     </div>

@@ -17,7 +17,8 @@
         "build": "tsc -b && vite build -c vite.frontend.config.ts",
         "package": "tsc -b && vite build",
         "lint": "eslint ./packages",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "preversion": "npm run lint && npm run build"
     },
     "dependencies": {
         "@astrox/sdk-web": "^0.1.41",

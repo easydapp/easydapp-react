@@ -11,7 +11,7 @@ import { DappStatusContractView } from './item';
 
 // Share button
 export function DappShareButton({ id }: { id: string }) {
-    const [isOpenHovered, setIsOpenHovered] = useState(false);
+    const [isOpenHovered, setIsOpenHovered] = React.useState(false);
 
     return (
         <div
@@ -24,7 +24,8 @@ export function DappShareButton({ id }: { id: string }) {
             }}
             onMouseLeave={() => {
                 setIsOpenHovered(false);
-            }}>
+            }}
+        >
             <a href={`https://easydapp.ai/run/${id}`} target="_blank">
                 <Icon
                     name="icon-open"
@@ -54,7 +55,8 @@ export function DappRefreshButton({ onResetInner }: { onResetInner: () => void }
             className={cn(
                 'ez-flex ez-h-[24px] ez-w-[24px] ez-flex-shrink-0 ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-full ez-duration-150',
                 isResetHovered ? 'ez-bg-white dark:ez-bg-[#9BFF21]' : 'ez-bg-black dark:ez-bg-black',
-            )}>
+            )}
+        >
             <Icon
                 name="icon-refresh"
                 className={cn(
@@ -108,7 +110,8 @@ export function DappStatusView({
                     <div className="ez-flex ez-w-full ez-items-center ez-justify-center ez-gap-2">
                         <Icon
                             name="icon-ui-wrong"
-                            className="!ez-h-[16px] !ez-w-[16px] ez-cursor-pointer ez-text-black"></Icon>
+                            className="!ez-h-[16px] !ez-w-[16px] ez-cursor-pointer ez-text-black"
+                        ></Icon>
 
                         <div className="ez-flex-1 ez-truncate ez-text-left ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-text-black dark:ez-text-white">
                             {error}
@@ -118,7 +121,8 @@ export function DappStatusView({
                             <div>
                                 <Icon
                                     name="icon-copy"
-                                    className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"></Icon>
+                                    className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"
+                                ></Icon>
                             </div>
                         </CopyToClipboard>
 
@@ -126,7 +130,8 @@ export function DappStatusView({
                             <div>
                                 <Icon
                                     name="icon-close2"
-                                    className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"></Icon>
+                                    className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"
+                                ></Icon>
                             </div>
                         </div>
                     </div>
@@ -181,7 +186,8 @@ function InnerDappStatusView({
                         }}
                         onMouseLeave={() => {
                             setEmptyHover(false);
-                        }}>
+                        }}
+                    >
                         {emptyHover && (
                             <div className="ez-absolute ez-left-[3px] ez-top-[39px] ez-z-50 ez-flex ez-w-[calc(100%-10px)] ez-flex-col ez-rounded-lg ez-bg-white ez-px-3 ez-py-[10px] !ez-shadow dark:ez-bg-[#222]">
                                 <p className="ez-font-['JetBrainsMono'] ez-text-xs ez-font-normal ez-leading-snug ez-text-[#999999]">

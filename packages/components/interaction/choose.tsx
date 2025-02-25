@@ -29,7 +29,7 @@ export function ComponentInteractionChooseView({
     interaction: ComponentInteraction;
     metadata: InteractionChooseMetadata;
 }) {
-    const [value, setValue] = useState<string>();
+    const [value, setValue] = React.useState<string>();
     const [values, setValues] = useState<ChooseItem[]>();
     const [loading, setLoading] = useState<boolean>(false);
 
@@ -83,7 +83,8 @@ export function ComponentInteractionChooseView({
             style={{
                 paddingTop: custom?.style?.paddingTop || '5px',
                 paddingBottom: custom?.style?.paddingBottom || '5px',
-            }}>
+            }}
+        >
             {
                 // Already determined parameters
                 values !== undefined && value !== undefined && (
@@ -93,7 +94,8 @@ export function ComponentInteractionChooseView({
                         </div>
                         <div
                             onClick={() => !loading && onClean()}
-                            className="ez-flex ez-h-[24px] ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-md !ez-border-[1px] ez-border-[#dddddd] ez-px-[6px] ez-py-[3px] ez-text-xs ez-text-[#999999] ez-duration-75 hover:!ez-border-[#000] hover:ez-text-[#000]">
+                            className="ez-flex ez-h-[24px] ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-md !ez-border-[1px] ez-border-[#dddddd] ez-px-[6px] ez-py-[3px] ez-text-xs ez-text-[#999999] ez-duration-75 hover:!ez-border-[#000] hover:ez-text-[#000]"
+                        >
                             <Icon className="ez-mr-[5px] ez-h-3 ez-w-3" name="icon-refresh"></Icon>
                             Reset
                         </div>
@@ -118,7 +120,8 @@ export function ComponentInteractionChooseView({
                         className="ez-grid ez-grid-cols-2 ez-items-center ez-gap-2"
                         style={{
                             gridTemplateColumns: custom?.style?.gridTemplateColumns || 'repeat(2, minmax(0, 1fr))',
-                        }}>
+                        }}
+                    >
                         {values.map((item, index) => (
                             <Button
                                 key={index}
@@ -148,7 +151,8 @@ export function ComponentInteractionChooseView({
                                         values?.length % 3 === 1 &&
                                         values?.length - 1 === index &&
                                         'ez-col-span-full')
-                                }></Button>
+                                }
+                            ></Button>
                         ))}
                     </div>
                 )
