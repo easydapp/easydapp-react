@@ -1,8 +1,9 @@
 import { CombinedRuntime } from '@jellypack/runtime/lib/runtime';
 import { ApiData, ApiDataAnchor } from '@jellypack/runtime/lib/store/api';
 import { DappMetadata } from '@jellypack/runtime/lib/store/dapp';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
 import Icon from '../common/icon';
 import { cn } from '../common/utils';
 import { CallItem, count_call_item } from './call';
@@ -23,16 +24,13 @@ export function DappShareButton({ id }: { id: string }) {
             }}
             onMouseLeave={() => {
                 setIsOpenHovered(false);
-            }}
-        >
+            }}>
             <a href={`https://easydapp.ai/run/${id}`} target="_blank">
                 <Icon
                     name="icon-open"
                     className={cn(
                         '!ez-h-[12px] !ez-w-[12px] ez-duration-150',
-                        isOpenHovered
-                            ? 'ez-text-black dark:ez-text-black'
-                            : 'ez-text-white dark:ez-text-white',
+                        isOpenHovered ? 'ez-text-black dark:ez-text-black' : 'ez-text-white dark:ez-text-white',
                     )}
                 />
             </a>
@@ -55,18 +53,13 @@ export function DappRefreshButton({ onResetInner }: { onResetInner: () => void }
             }}
             className={cn(
                 'ez-flex ez-h-[24px] ez-w-[24px] ez-flex-shrink-0 ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-full ez-duration-150',
-                isResetHovered
-                    ? 'ez-bg-white dark:ez-bg-[#9BFF21]'
-                    : 'ez-bg-black dark:ez-bg-black',
-            )}
-        >
+                isResetHovered ? 'ez-bg-white dark:ez-bg-[#9BFF21]' : 'ez-bg-black dark:ez-bg-black',
+            )}>
             <Icon
                 name="icon-refresh"
                 className={cn(
                     '!ez-h-[14px] !ez-w-[14px] ez-duration-150',
-                    isResetHovered
-                        ? 'ez-text-black dark:ez-text-black'
-                        : 'ez-text-white dark:ez-text-white',
+                    isResetHovered ? 'ez-text-black dark:ez-text-black' : 'ez-text-white dark:ez-text-white',
                 )}
             />
         </div>
@@ -96,9 +89,7 @@ export function DappStatusView({
     return (
         <div className="ez-relative ez-flex ez-h-[38px] ez-w-full">
             <div className="ez-flex ez-w-full ez-items-center ez-justify-between ez-px-2">
-                {!runtime && (
-                    <InnerDappStatusLoadingView id={id} metadata={metadata} onReset={onReset} />
-                )}
+                {!runtime && <InnerDappStatusLoadingView id={id} metadata={metadata} onReset={onReset} />}
 
                 {runtime && (
                     <InnerDappStatusView
@@ -117,25 +108,26 @@ export function DappStatusView({
                     <div className="ez-flex ez-w-full ez-items-center ez-justify-center ez-gap-2">
                         <Icon
                             name="icon-ui-wrong"
-                            className="!ez-h-[16px] !ez-w-[16px] ez-cursor-pointer ez-text-black"
-                        ></Icon>
+                            className="!ez-h-[16px] !ez-w-[16px] ez-cursor-pointer ez-text-black"></Icon>
 
                         <div className="ez-flex-1 ez-truncate ez-text-left ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-text-black dark:ez-text-white">
                             {error}
                         </div>
 
                         <CopyToClipboard text={JSON.stringify(error)}>
-                            <Icon
-                                name="icon-copy"
-                                className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"
-                            ></Icon>
+                            <div>
+                                <Icon
+                                    name="icon-copy"
+                                    className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"></Icon>
+                            </div>
                         </CopyToClipboard>
 
                         <div onClick={() => setError('')}>
-                            <Icon
-                                name="icon-close2"
-                                className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"
-                            ></Icon>
+                            <div>
+                                <Icon
+                                    name="icon-close2"
+                                    className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"></Icon>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,17 +174,14 @@ function InnerDappStatusView({
                     <div
                         className={cn(
                             'ez-flex ez-h-[28px] ez-w-[28px] ez-flex-shrink-0 ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-full !ez-border-[2px] ez-border-[#e8e8e8] ez-duration-150 dark:ez-border-[#1f4000]',
-                            emptyHover
-                                ? 'ez-bg-white dark:ez-bg-[#9BFF21]'
-                                : 'ez-bg-black dark:ez-bg-black',
+                            emptyHover ? 'ez-bg-white dark:ez-bg-[#9BFF21]' : 'ez-bg-black dark:ez-bg-black',
                         )}
                         onMouseEnter={() => {
                             setEmptyHover(true);
                         }}
                         onMouseLeave={() => {
                             setEmptyHover(false);
-                        }}
-                    >
+                        }}>
                         {emptyHover && (
                             <div className="ez-absolute ez-left-[3px] ez-top-[39px] ez-z-50 ez-flex ez-w-[calc(100%-10px)] ez-flex-col ez-rounded-lg ez-bg-white ez-px-3 ez-py-[10px] !ez-shadow dark:ez-bg-[#222]">
                                 <p className="ez-font-['JetBrainsMono'] ez-text-xs ez-font-normal ez-leading-snug ez-text-[#999999]">
@@ -205,9 +194,7 @@ function InnerDappStatusView({
                             name="icon-contracts"
                             className={cn(
                                 '!ez-h-[12px] !ez-w-[12px] ez-duration-150',
-                                emptyHover
-                                    ? 'ez-text-black dark:ez-text-black'
-                                    : 'ez-text-white dark:ez-text-white',
+                                emptyHover ? 'ez-text-black dark:ez-text-black' : 'ez-text-white dark:ez-text-white',
                             )}
                         />
                     </div>
@@ -218,8 +205,7 @@ function InnerDappStatusView({
                         {items
                             .filter((item) => {
                                 if ('http' in item) {
-                                    if (!item.http.list.find((item) => !!item.data.length))
-                                        return false;
+                                    if (!item.http.list.find((item) => !!item.data.length)) return false;
                                 }
                                 return true;
                             })
