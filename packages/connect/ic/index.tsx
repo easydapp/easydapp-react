@@ -1,6 +1,6 @@
 import { IcWallet } from '@jellypack/runtime/lib/model/common/wallet/ic';
 import { ComponentIdentityIcValue, IdentityIcMetadata } from '@jellypack/runtime/lib/model/components/identity/ic';
-import { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import Icon from '../../common/icon';
 import { CustomStorage } from '../../storage';
@@ -51,7 +51,7 @@ export function Connect2IcModal({
 }) {
     const { onConnect } = useConnect2Ic(storage);
 
-    const [metadata, setMetadata] = useState<{
+    const [metadata, setMetadata] = React.useState<{
         metadata: IdentityIcMetadata;
         wallets: IcWallet[];
         size: any;
@@ -151,10 +151,12 @@ export function Connect2IcModal({
                     <div className="ez-relative ez-mx-[15px] ez-mb-[17px] ez-flex ez-flex-1 ez-flex-col ez-rounded-2xl ez-bg-white dark:ez-bg-[#222]">
                         <div
                             className="ez-absolute ez-right-[10px] ez-top-[10px] ez-h-6 ez-w-6 ez-cursor-pointer"
-                            onClick={onClose}>
+                            onClick={onClose}
+                        >
                             <Icon
                                 name="icon-close"
-                                className="!ez-h-6 !ez-w-6 ez-text-[#d9d9d9] dark:ez-text-[#666]"></Icon>
+                                className="!ez-h-6 !ez-w-6 ez-text-[#d9d9d9] dark:ez-text-[#666]"
+                            ></Icon>
                         </div>
                         <div className="ez-mt-[17px] ez-flex ez-items-center ez-justify-center ez-text-center ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-leading-[18px] ez-text-black dark:ez-text-white">
                             Connect to IC
@@ -172,7 +174,8 @@ export function Connect2IcModal({
                                                     metadata.wallets.find((s) => type in s)!,
                                                     type,
                                                 )
-                                            }>
+                                            }
+                                        >
                                             <div className="ez-ml-[15px] ez-flex ez-h-[25px] ez-w-[25px] ez-items-center ez-justify-center ez-rounded-[6px] ez-bg-[#F8F8F8]">
                                                 <img src={images[type]} alt="" className="ez-h-[12px] ez-w-[12px]" />
                                             </div>

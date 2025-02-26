@@ -1,3 +1,6 @@
 /// <reference types="vite/client" />
+declare module '*.svg' {
+    import * as React from 'react';
 
-declare module 'react-copy-to-clipboard';
+    export const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement> & { title?: string }>;
+}
