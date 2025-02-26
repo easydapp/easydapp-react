@@ -84,7 +84,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       react:
-        specifier: ^18.2.0
+        specifier: '>=18 || >=19.0.0-rc.0'
         version: 18.3.1
       react-content-loader:
         specifier: ^7.0.2
@@ -93,7 +93,7 @@ importers:
         specifier: ^5.1.0
         version: 5.1.0(react@18.3.1)
       react-dom:
-        specifier: ^18.2.0
+        specifier: '>=18 || >=19.0.0-rc.0'
         version: 18.3.1(react@18.3.1)
       react-icons:
         specifier: ^5.5.0
