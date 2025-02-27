@@ -94,7 +94,7 @@ export function ComponentInteractionChooseView({
                         </div>
                         <div
                             onClick={() => !loading && onClean()}
-                            className="ez-flex ez-h-[24px] ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-md !ez-border-[1px] ez-border-[#dddddd] ez-px-[6px] ez-py-[3px] ez-text-xs ez-text-[#999999] ez-duration-75 hover:!ez-border-[#000] hover:ez-text-[#000]"
+                            className="ez-flex ez-h-[24px] ez-cursor-pointer ez-items-center ez-justify-center ez-rounded-md !ez-border-[1px] ez-border-[#dddddd] ez-px-[6px] ez-py-[3px] ez-text-xs ez-text-[#999999] ez-duration-75 hover:!ez-border-[#000] hover:ez-text-[#000] dark:!ez-border-[#333333] dark:!ez-text-[#999] dark:hover:!ez-border-[#9bff21] dark:hover:!ez-text-[#9bff21]"
                         >
                             <Icon className="ez-mr-[5px] ez-h-3 ez-w-3" name="icon-refresh"></Icon>
                             Reset
