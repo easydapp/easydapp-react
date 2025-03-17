@@ -19,7 +19,7 @@
         "lint": "eslint ./packages",
         "preview": "vite preview",
         "preversion": "npm run lint && npm run build && npm run package",
-        "postversion": "npm run package && git push && git push --tags"
+        "postversion": "git push && git push --tags"
     },
     "dependencies": {
         "@astrox/sdk-web": "^0.1.41",

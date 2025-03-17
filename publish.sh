@@ -6,8 +6,8 @@ pnpm run lint
 
 rm -rf ./lib/
 
-npm version patch # next version
 pnpm run package
 
 # publish
+npm version patch # next version
 npm publish --access public
