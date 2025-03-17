@@ -8,7 +8,7 @@ import {
 } from '@jellypack/runtime/lib/canisters/storage';
 import { LinkComponent } from '@jellypack/runtime/lib/model';
 import { doExecuteByRemote } from '@jellypack/runtime/lib/model/components/code/by_remote';
-import { doExecuteBySaferEvalDirectly } from '@jellypack/runtime/lib/model/components/code/by_safer_eval';
+// import { doExecuteBySaferEvalDirectly } from '@jellypack/runtime/lib/model/components/code/by_safer_eval';
 import { doExecuteByWasmFactory } from '@jellypack/runtime/lib/model/components/code/by_wasm';
 import { doExecuteByWasmAndRemoteAndCachedFactory } from '@jellypack/runtime/lib/model/components/code/by_wasm_and_remote_and_cached';
 import { ApiData, ApiDataAnchor } from '@jellypack/runtime/lib/store/api';
@@ -51,7 +51,7 @@ const testExecute = async () => {
     for (let i = 0; i < max; i++) {
         const s = Date.now();
         // await doExecuteBySaferEvalAndFunction(code, args, false);
-        await doExecuteBySaferEvalDirectly(code, args, false);
+        // await doExecuteBySaferEvalDirectly(code, args, false);
         const s1 = Date.now();
         await doExecuteByWasm(code, args, false);
         const s2 = Date.now();
