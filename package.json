@@ -18,7 +18,7 @@
         "package": "tsc -b && vite build",
         "lint": "eslint ./packages",
         "preview": "vite preview",
-        "preversion": "npm run lint && npm run build",
+        "preversion": "npm run lint && npm run build && npm run package",
         "postversion": "git push && git push --tags"
     },
     "dependencies": {
