@@ -11,15 +11,14 @@ import { Publisher, PublisherAnchor } from '@jellypack/runtime/lib/store/publish
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { forwardRef, useCallback, useEffect, useImperativeHandle, useState } from 'react';
 import { createConfig, http, WagmiProvider } from 'wagmi';
-import { bsc, bscTestnet, mainnet, polygon, polygonAmoy, sepolia } from 'wagmi/chains';
+import { bsc, bscTestnet, hashkey, hashkeyTestnet, mainnet, polygon, polygonAmoy, sepolia } from 'wagmi/chains';
+
 import '../assets/css/main.css';
 import '../assets/css/main.scss';
 import '../assets/css/view.scss';
 import '../assets/font/iconfont.js';
-import {
-    IncrementCombinedCall,
-    IncrementDappCalledByToken,
-} from '@jellypack/runtime/lib/canisters/storage';
+
+import { IncrementCombinedCall, IncrementDappCalledByToken } from '@jellypack/runtime/lib/canisters/storage';
 import { ExecuteEvmActionCall } from '@jellypack/runtime/lib/model/components/call/evm/action/call';
 import { ExecuteEvmActionDeploy } from '@jellypack/runtime/lib/model/components/call/evm/action/deploy';
 import {
@@ -32,6 +31,7 @@ import { ExecuteIcActionCall } from '@jellypack/runtime/lib/model/components/cal
 import { CodeExecutor, ParseFuncCandid, ParseServiceCandid } from '@jellypack/runtime/lib/wasm';
 import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit';
 import React from 'react';
+
 import { CombinedView } from '../combined';
 import Icon from '../common/icon';
 import { LoadingSkeleton } from '../common/loading';
@@ -45,18 +45,20 @@ import { fetch_dapp, fetch_dapp_access } from './fetch';
 const rainbow_config = getDefaultConfig({
     appName: 'Easydapp',
     projectId: 'd434c265182375eb1fdb058042717a15',
-    chains: [mainnet, sepolia, polygon, polygonAmoy, bsc, bscTestnet],
+    chains: [mainnet, sepolia, bsc, bscTestnet, hashkey, hashkeyTestnet, polygon, polygonAmoy],
     ssr: true, // If your dApp uses server side rendering (SSR)
 });
 const config = createConfig({
-    chains: [mainnet, sepolia, polygon, polygonAmoy, bsc, bscTestnet],
+    chains: [mainnet, sepolia, bsc, bscTestnet, hashkey, hashkeyTestnet, polygon, polygonAmoy],
     transports: {
         [mainnet.id]: http(),
         [sepolia.id]: http(),
-        [polygon.id]: http(),
-        [polygonAmoy.id]: http(),
         [bsc.id]: http(),
         [bscTestnet.id]: http(),
+        [hashkey.id]: http(),
+        [hashkeyTestnet.id]: http(),
+        [polygon.id]: http(),
+        [polygonAmoy.id]: http(),
     },
     ssr: true,
 });
@@ -232,8 +234,7 @@ export const LinkDappView = forwardRef(
 
                     for (const p of dapp.metadata?.params ?? []) {
                         if (typeof param[p.name] !== 'string') {
-                            if (p.default === undefined)
-                                return setLoadingError(`missing param: ${p.name}`);
+                            if (p.default === undefined) return setLoadingError(`missing param: ${p.name}`);
                         }
                     }
                     // ? Whether to provide identity
@@ -278,9 +279,7 @@ export const LinkDappView = forwardRef(
                 const isColorSchemeDark = htmlColorScheme === 'dark';
 
                 const finalTheme =
-                    isHtmlDark || dataTheme === 'dark' || themeMode === 'dark' || isColorSchemeDark
-                        ? 'dark'
-                        : 'light';
+                    isHtmlDark || dataTheme === 'dark' || themeMode === 'dark' || isColorSchemeDark ? 'dark' : 'light';
 
                 localStorage.setItem('__ez-dapp-theme', finalTheme);
                 setTheme(finalTheme);
@@ -343,10 +342,7 @@ export const LinkDappView = forwardRef(
                                         {loadingError && (
                                             <div className="ez-scrollbar-show ez-flex ez-h-full ez-max-h-[650px] ez-min-h-[400px] ez-flex-1 ez-cursor-default ez-items-center ez-justify-center ez-overflow-y-auto ez-rounded-[12px] ez-bg-light2 dark:ez-bg-dark2">
                                                 <div className="ez-flex ez-h-full ez-flex-col ez-items-center ez-justify-center ez-py-8">
-                                                    <Icon
-                                                        name="icon-ui-wrong"
-                                                        className="!ez-h-[66px] !ez-w-[66px]"
-                                                    />
+                                                    <Icon name="icon-ui-wrong" className="!ez-h-[66px] !ez-w-[66px]" />
                                                     <div className="ez-mt-[15px] ez-text-center ez-font-['JetBrainsMono'] ez-text-base ez-font-normal ez-leading-[18px] ez-text-black dark:ez-text-white">
                                                         {loadingError}
                                                     </div>
@@ -360,61 +356,41 @@ export const LinkDappView = forwardRef(
                                             </div>
                                         )}
 
-                                        {!loadingError &&
-                                            param &&
-                                            verified &&
-                                            dapp &&
-                                            connect_wallet && (
-                                                <div className="ez-scrollbar-show ez-max-h-[650px] ez-min-h-[400px] ez-w-full ez-flex-1 ez-cursor-default ez-overflow-y-auto ez-rounded-[12px] ez-bg-light2 dark:ez-bg-dark2">
-                                                    <CombinedView
-                                                        dapp={dapp}
-                                                        verified={verified}
-                                                        param={param}
-                                                        setError={setError}
-                                                        reset={reset}
-                                                        identity={identity ?? {}}
-                                                        connect_wallet={
-                                                            upper_connect_wallet ?? connect_wallet
-                                                        }
-                                                        calling={calling}
-                                                        onCalling={onCalling}
-                                                        setRuntime={setRuntime}
-                                                        query_publisher={upper_query_publisher}
-                                                        query_code={upper_query_code}
-                                                        query_api={upper_query_api}
-                                                        query_combined={upper_query_combined}
-                                                        onPublisher={onPublisher}
-                                                        code_executor={code_executor}
-                                                        parse_service_candid={parse_service_candid}
-                                                        parse_func_candid={parse_func_candid}
-                                                        increment_combined_called={
-                                                            increment_combined_called
-                                                        }
-                                                        increment_dapp_called_by_token={
-                                                            increment_dapp_called_by_token
-                                                        }
-                                                        execute_http_call={execute_http_call}
-                                                        execute_ic_action_call={
-                                                            execute_ic_action_call
-                                                        }
-                                                        execute_evm_action_call={
-                                                            execute_evm_action_call
-                                                        }
-                                                        execute_evm_action_transaction_estimate_gas={
-                                                            execute_evm_action_transaction_estimate_gas
-                                                        }
-                                                        execute_evm_action_transaction={
-                                                            execute_evm_action_transaction
-                                                        }
-                                                        execute_evm_action_deploy={
-                                                            execute_evm_action_deploy
-                                                        }
-                                                        execute_evm_action_transfer={
-                                                            execute_evm_action_transfer
-                                                        }
-                                                    />
-                                                </div>
-                                            )}
+                                        {!loadingError && param && verified && dapp && connect_wallet && (
+                                            <div className="ez-scrollbar-show ez-max-h-[650px] ez-min-h-[400px] ez-w-full ez-flex-1 ez-cursor-default ez-overflow-y-auto ez-rounded-[12px] ez-bg-light2 dark:ez-bg-dark2">
+                                                <CombinedView
+                                                    dapp={dapp}
+                                                    verified={verified}
+                                                    param={param}
+                                                    setError={setError}
+                                                    reset={reset}
+                                                    identity={identity ?? {}}
+                                                    connect_wallet={upper_connect_wallet ?? connect_wallet}
+                                                    calling={calling}
+                                                    onCalling={onCalling}
+                                                    setRuntime={setRuntime}
+                                                    query_publisher={upper_query_publisher}
+                                                    query_code={upper_query_code}
+                                                    query_api={upper_query_api}
+                                                    query_combined={upper_query_combined}
+                                                    onPublisher={onPublisher}
+                                                    code_executor={code_executor}
+                                                    parse_service_candid={parse_service_candid}
+                                                    parse_func_candid={parse_func_candid}
+                                                    increment_combined_called={increment_combined_called}
+                                                    increment_dapp_called_by_token={increment_dapp_called_by_token}
+                                                    execute_http_call={execute_http_call}
+                                                    execute_ic_action_call={execute_ic_action_call}
+                                                    execute_evm_action_call={execute_evm_action_call}
+                                                    execute_evm_action_transaction_estimate_gas={
+                                                        execute_evm_action_transaction_estimate_gas
+                                                    }
+                                                    execute_evm_action_transaction={execute_evm_action_transaction}
+                                                    execute_evm_action_deploy={execute_evm_action_deploy}
+                                                    execute_evm_action_transfer={execute_evm_action_transfer}
+                                                />
+                                            </div>
+                                        )}
                                     </>
                                 )}
                             </div>

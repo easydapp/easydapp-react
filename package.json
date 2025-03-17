@@ -30,12 +30,12 @@
         "@dfinity/identity": "^2.3.0",
         "@dfinity/principal": "^2.3.0",
         "@emotion/react": "^11.14.0",
-        "@jellypack/compiler": "^0.0.2",
-        "@jellypack/runtime": "^0.0.4",
-        "@jellypack/types": "^0.0.2",
-        "@jellypack/wasm-api": "^0.0.7",
+        "@jellypack/compiler": "^0.0.9",
+        "@jellypack/runtime": "^0.0.9",
+        "@jellypack/types": "^0.0.9",
+        "@jellypack/wasm-api": "^0.0.9",
         "@rainbow-me/rainbowkit": "^2.2.4",
-        "@tanstack/react-query": "^5.67.3",
+        "@tanstack/react-query": "^5.68.0",
         "buffer": "^6.0.3",
         "clsx": "^2.1.1",
         "comlink": "^4.4.2",
@@ -43,7 +43,7 @@
         "ethers": "^6.13.5",
         "framer-motion": "^12.5.0",
         "lodash": "^4.17.21",
-        "nanoid": "^5.1.3",
+        "nanoid": "^5.1.4",
         "neverthrow": "^8.2.0",
         "rc-select": "^14.16.6",
         "rc-switch": "^4.1.0",
@@ -51,7 +51,7 @@
         "react-copy-to-clipboard": "^5.1.0",
         "react-icons": "^5.5.0",
         "tailwind-merge": "~3.0.2",
-        "viem": "^2.23.10",
+        "viem": "^2.23.11",
         "wagmi": "^2.14.13"
     },
     "peerDependencies": {
@@ -77,7 +77,7 @@
         "prettier-plugin-tailwindcss": "^0.6.11",
         "react-router-dom": "^7.3.0",
         "sass": "^1.85.1",
-        "stylelint": "^16.15.0",
+        "stylelint": "^16.16.0",
         "stylelint-config-prettier-scss": "^1.0.0",
         "stylelint-config-standard": "^37.0.0",
         "stylelint-config-standard-scss": "^14.0.0",
@@ -85,7 +85,7 @@
         "tailwindcss": "^3.4.17",
         "typescript": "^5.8.2",
         "typescript-eslint": "^8.26.1",
-        "vite": "^6.2.1",
+        "vite": "^6.2.2",
         "vite-plugin-dts": "^4.5.3"
     }
 }

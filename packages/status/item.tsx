@@ -3,7 +3,8 @@ import { EvmChain, match_evm_chain } from '@jellypack/runtime/lib/model/types/ev
 import { CallingData } from '@jellypack/runtime/lib/runtime/calling';
 import { ApiData, ApiDataAnchor } from '@jellypack/runtime/lib/store/api';
 import { principal2account_id } from '@jellypack/types/lib/open/open-ic';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
 import { Copied } from '../common/copied';
 import Icon from '../common/icon';
 import { Opened } from '../common/opened';
@@ -19,7 +20,7 @@ export function DappStatusContractView({
     item: CallItem;
     query_api?: (anchor: ApiDataAnchor) => Promise<ApiData | undefined>;
 }) {
-    const [itemHover, setItemHover] = useState(false);
+    const [itemHover, setItemHover] = React.useState(false);
 
     const [doing, setDoing] = useState(false);
 
@@ -245,16 +246,10 @@ function ContentIcView({
                     )}
                     {w_caller_copied && (
                         <>
-                            <div>
-                                {w_caller.substring(0, 12) +
-                                    '...' +
-                                    w_caller.substring(w_caller.length - 9)}
-                            </div>
+                            <div>{w_caller.substring(0, 12) + '...' + w_caller.substring(w_caller.length - 9)}</div>
                             <Copied value={w_caller} />
                             <Opened
-                                url={`https://dashboard.internetcomputer.org/account/${principal2account_id(
-                                    w_caller,
-                                )}`}
+                                url={`https://dashboard.internetcomputer.org/account/${principal2account_id(w_caller)}`}
                             />
                         </>
                     )}
@@ -270,27 +265,19 @@ function ContentIcView({
                     {w_canister_id_copied && (
                         <>
                             <Copied value={w_canister_id} />
-                            <Opened
-                                url={`https://dashboard.internetcomputer.org/canister/${w_canister_id}`}
-                            />
+                            <Opened url={`https://dashboard.internetcomputer.org/canister/${w_canister_id}`} />
                         </>
                     )}
                 </div>
             </div>
 
-            {list.length === 1 && (
-                <ContentIcDataView single={true} data={list[0]} query_api={upper_query_api} />
-            )}
+            {list.length === 1 && <ContentIcDataView single={true} data={list[0]} query_api={upper_query_api} />}
 
             {list.length !== 1 && (
                 <>
                     <div className="ez-mt-2 !ez-border-t-2 ez-border-dotted ez-pt-2">
                         {list.map((data) => (
-                            <ContentIcDataView
-                                key={data.id}
-                                data={data}
-                                query_api={upper_query_api}
-                            />
+                            <ContentIcDataView key={data.id} data={data} query_api={upper_query_api} />
                         ))}
                     </div>
                 </>
@@ -313,9 +300,7 @@ function ContentIcDataView({
             if ('ic' in data.component.metadata) {
                 if ('api' in data.component.metadata.ic.action.call.api) {
                     if ('single' in data.component.metadata.ic.action.call.api.api) {
-                        return data.component.metadata.ic.action.call.api.api.single.api
-                            .split(':')[0]
-                            .trim();
+                        return data.component.metadata.ic.action.call.api.api.single.api.split(':')[0].trim();
                     } else {
                         return data.component.metadata.ic.action.call.api.api.origin.method;
                     }
@@ -340,18 +325,18 @@ function ContentIcDataView({
         if (method) return;
         if ('ic' in data.component.metadata) {
             if ('anchor' in data.component.metadata.ic.action.call.api) {
-                (upper_query_api ?? proxy_query_api)(
-                    data.component.metadata.ic.action.call.api.anchor,
-                ).then((api: ApiData | undefined) => {
-                    if (!api) return;
-                    if ('ic' in api.content) {
-                        if ('single' in api.content.ic) {
-                            setMethod(api.content.ic.single.api.split(':')[0].trim());
-                        } else {
-                            setMethod(api.content.ic.origin.method);
+                (upper_query_api ?? proxy_query_api)(data.component.metadata.ic.action.call.api.anchor).then(
+                    (api: ApiData | undefined) => {
+                        if (!api) return;
+                        if ('ic' in api.content) {
+                            if ('single' in api.content.ic) {
+                                setMethod(api.content.ic.single.api.split(':')[0].trim());
+                            } else {
+                                setMethod(api.content.ic.origin.method);
+                            }
                         }
-                    }
-                });
+                    },
+                );
             }
         }
     }, [method, data, upper_query_api]);
@@ -383,11 +368,14 @@ const get_evm_account_opened = (chain: EvmChain, account: string): string => {
         ethereum: () => `https://etherscan.io/address/${account}`,
         ethereum_test_sepolia: () => `https://sepolia.etherscan.io/address/${account}`,
 
-        polygon: () => `https://polygonscan.com/address/${account}`,
-        polygon_test_amoy: () => `https://amoy.polygonscan.com/address/${account}`,
-
         bsc: () => `https://bscscan.com/address/${account}`,
         bsc_test: () => `https://testnet.bscscan.com/address/${account}`,
+
+        hsk: () => `https://hashkey.blockscout.com/address/${account}`,
+        hsk_test: () => `https://hashkeychain-testnet-explorer.alt.technology/address/${account}`,
+
+        polygon: () => `https://polygonscan.com/address/${account}`,
+        polygon_test_amoy: () => `https://amoy.polygonscan.com/address/${account}`,
     });
 };
 
@@ -396,11 +384,14 @@ const get_evm_address_opened = (chain: EvmChain, address: string): string => {
         ethereum: () => `https://etherscan.io/address/${address}`,
         ethereum_test_sepolia: () => `https://sepolia.etherscan.io/address/${address}`,
 
-        polygon: () => `https://polygonscan.com/address/${address}`,
-        polygon_test_amoy: () => `https://amoy.polygonscan.com/address/${address}`,
-
         bsc: () => `https://bscscan.com/address/${address}`,
         bsc_test: () => `https://testnet.bscscan.com/address/${address}`,
+
+        hsk: () => `https://hashkey.blockscout.com/address/${address}`,
+        hsk_test: () => `https://hashkeychain-testnet-explorer.alt.technology/address/${address}`,
+
+        polygon: () => `https://polygonscan.com/address/${address}`,
+        polygon_test_amoy: () => `https://amoy.polygonscan.com/address/${address}`,
     });
 };
 
@@ -409,11 +400,14 @@ const get_evm_tx_opened = (chain: EvmChain, tx: string): string => {
         ethereum: () => `https://etherscan.io/tx/${tx}`,
         ethereum_test_sepolia: () => `https://sepolia.etherscan.io/tx/${tx}`,
 
-        polygon: () => `https://polygonscan.com/address/${tx}`,
-        polygon_test_amoy: () => `https://amoy.polygonscan.com/tx/${tx}`,
-
         bsc: () => `https://bscscan.com/tx/${tx}`,
         bsc_test: () => `https://testnet.bscscan.com/tx/${tx}`,
+
+        hsk: () => `https://hashkey.blockscout.com/tx/${tx}`,
+        hsk_test: () => `https://hashkeychain-testnet-explorer.alt.technology/tx/${tx}`,
+
+        polygon: () => `https://polygonscan.com/address/${tx}`,
+        polygon_test_amoy: () => `https://amoy.polygonscan.com/tx/${tx}`,
     });
 };
 
@@ -460,11 +454,7 @@ function ShowEvmAccountView({
                 {!w_account_copied && <>{w_account}</>}
                 {w_account_copied && (
                     <>
-                        <div>
-                            {w_account.substring(0, 12) +
-                                '...' +
-                                w_account.substring(w_account.length - 9)}
-                        </div>
+                        <div>{w_account.substring(0, 12) + '...' + w_account.substring(w_account.length - 9)}</div>
                         <Copied value={w_account} />
                         {opened && <Opened url={opened} />}
                     </>
@@ -495,11 +485,7 @@ function ShowEvmContractView({ chain, contract }: { chain: EvmChain; contract: s
                 {!w_contract_copied && <div>{w_contract}</div>}
                 {w_contract_copied && (
                     <>
-                        <div>
-                            {w_contract.substring(0, 12) +
-                                '...' +
-                                w_contract.substring(w_contract.length - 8)}
-                        </div>
+                        <div>{w_contract.substring(0, 12) + '...' + w_contract.substring(w_contract.length - 8)}</div>
                         <Copied value={w_contract} />
                         {opened && <Opened url={opened} />}
                     </>
@@ -527,18 +513,12 @@ function ContentEvmCallView({
             <ShowEvmChainView chain={chain} />
             <ShowEvmAccountView chain={chain} account={account} />
             <ShowEvmContractView chain={chain} contract={contract} />
-            {list.length === 1 && (
-                <ContentEvmCallDataView single={true} data={list[0]} query_api={upper_query_api} />
-            )}
+            {list.length === 1 && <ContentEvmCallDataView single={true} data={list[0]} query_api={upper_query_api} />}
             {list.length !== 1 && (
                 <>
                     <div className="ez-mt-2 !ez-border-t-2 ez-border-dotted ez-pt-2">
                         {list.map((data) => (
-                            <ContentEvmCallDataView
-                                key={data.id}
-                                data={data}
-                                query_api={upper_query_api}
-                            />
+                            <ContentEvmCallDataView key={data.id} data={data} query_api={upper_query_api} />
                         ))}
                     </div>
                 </>
@@ -562,9 +542,7 @@ function ContentEvmCallDataView({
                 if ('call' in data.component.metadata.evm.action) {
                     if ('api' in data.component.metadata.evm.action.call.api) {
                         if ('single' in data.component.metadata.evm.action.call.api.api) {
-                            return JSON.parse(
-                                data.component.metadata.evm.action.call.api.api.single.api,
-                            ).name;
+                            return JSON.parse(data.component.metadata.evm.action.call.api.api.single.api).name;
                         } else {
                             return data.component.metadata.evm.action.call.api.api.origin.name;
                         }
@@ -592,18 +570,18 @@ function ContentEvmCallDataView({
         if ('evm' in data.component.metadata) {
             if ('call' in data.component.metadata.evm.action) {
                 if ('anchor' in data.component.metadata.evm.action.call.api) {
-                    (upper_query_api ?? proxy_query_api)(
-                        data.component.metadata.evm.action.call.api.anchor,
-                    ).then((api: ApiData | undefined) => {
-                        if (!api) return;
-                        if ('evm' in api.content) {
-                            if ('single' in api.content.evm) {
-                                setMethod(JSON.parse(api.content.evm.single.api).name);
-                            } else {
-                                setMethod(api.content.evm.origin.name);
+                    (upper_query_api ?? proxy_query_api)(data.component.metadata.evm.action.call.api.anchor).then(
+                        (api: ApiData | undefined) => {
+                            if (!api) return;
+                            if ('evm' in api.content) {
+                                if ('single' in api.content.evm) {
+                                    setMethod(JSON.parse(api.content.evm.single.api).name);
+                                } else {
+                                    setMethod(api.content.evm.origin.name);
+                                }
                             }
-                        }
-                    });
+                        },
+                    );
                 }
             }
         }
@@ -705,12 +683,7 @@ function ContentEvmTransactionView({
             <ShowEvmAccountView chain={chain} account={account} />
             <ShowEvmContractView chain={chain} contract={contract} />
             {list.length === 1 && (
-                <ContentEvmTransactionDataView
-                    single={true}
-                    chain={chain}
-                    data={list[0]}
-                    query_api={upper_query_api}
-                />
+                <ContentEvmTransactionDataView single={true} chain={chain} data={list[0]} query_api={upper_query_api} />
             )}
             {list.length !== 1 && (
                 <>
@@ -747,9 +720,7 @@ function ContentEvmTransactionDataView({
                 if ('call' in data.component.metadata.evm.action) {
                     if ('api' in data.component.metadata.evm.action.call.api) {
                         if ('single' in data.component.metadata.evm.action.call.api.api) {
-                            return JSON.parse(
-                                data.component.metadata.evm.action.call.api.api.single.api,
-                            ).name;
+                            return JSON.parse(data.component.metadata.evm.action.call.api.api.single.api).name;
                         } else {
                             return data.component.metadata.evm.action.call.api.api.origin.name;
                         }
@@ -828,15 +799,7 @@ function ContentEvmTransactionDataView({
 
 // ====================================== evm deploy ======================================
 
-function ContentEvmDeployView({
-    chain,
-    account,
-    data,
-}: {
-    chain: EvmChain;
-    account: string;
-    data: CallingData;
-}) {
+function ContentEvmDeployView({ chain, account, data }: { chain: EvmChain; account: string; data: CallingData }) {
     return (
         <div className="easydapp-tooltip-call-item-content content-evm content-evm-deploy">
             <ShowEvmChainView chain={chain} />
@@ -909,15 +872,8 @@ function ContentEvmTransferView({
         <div className="easydapp-tooltip-call-item-content content-evm content-evm-transfer">
             <ShowEvmChainView chain={chain} />
             <ShowEvmAccountView chain={chain} account={account} />
-            <ShowEvmAccountView
-                chain={chain}
-                account={transfer_to}
-                title={'To'}
-                color={'text-blue-500'}
-            />
-            {list.length === 1 && (
-                <ContentEvmTransferDataView single={true} chain={chain} data={list[0]} />
-            )}
+            <ShowEvmAccountView chain={chain} account={transfer_to} title={'To'} color={'text-blue-500'} />
+            {list.length === 1 && <ContentEvmTransferDataView single={true} chain={chain} data={list[0]} />}
             {list.length !== 1 && (
                 <>
                     <div className="ez-my-1 !ez-border-b-2 ez-border-dotted"></div>
@@ -932,15 +888,7 @@ function ContentEvmTransferView({
     );
 }
 
-function ContentEvmTransferDataView({
-    single,
-    chain,
-    data,
-}: {
-    single?: boolean;
-    chain: EvmChain;
-    data: CallingData;
-}) {
+function ContentEvmTransferDataView({ single, chain, data }: { single?: boolean; chain: EvmChain; data: CallingData }) {
     const pay_value: string | undefined = undefined;
     let tx: string | undefined = undefined;
     let spend = 0;
@@ -959,9 +907,7 @@ function ContentEvmTransferDataView({
                     <div className="ez-flex ez-items-center ez-justify-start">
                         <Label title={!single ? `Transfer #${data.id}` : 'Transfer'} />
                         <div className="ez-truncate ez-font-['JetBrainsMono'] ez-text-xs ez-font-normal ez-leading-snug ez-text-black dark:ez-text-white">
-                            {pay_value
-                                ? `${Number(`${BigInt(pay_value) / 1000000000n}`) / 1e9} ETH`
-                                : '?'}
+                            {pay_value ? `${Number(`${BigInt(pay_value) / 1000000000n}`) / 1e9} ETH` : '?'}
                         </div>
                     </div>
 
