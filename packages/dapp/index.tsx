@@ -342,7 +342,7 @@ export const LinkDappView = forwardRef(
                                         {loadingError && (
                                             <div className="ez-scrollbar-show ez-flex ez-h-full ez-max-h-[650px] ez-min-h-[400px] ez-flex-1 ez-cursor-default ez-items-center ez-justify-center ez-overflow-y-auto ez-rounded-[12px] ez-bg-light2 dark:ez-bg-dark2">
                                                 <div className="ez-flex ez-h-full ez-flex-col ez-items-center ez-justify-center ez-py-8">
-                                                    <Icon name="icon-ui-wrong" className="!ez-h-[66px] !ez-w-[66px]" />
+                                                    <Icon name="ez-ui-wrong" className="!ez-h-[66px] !ez-w-[66px]" />
                                                     <div className="ez-mt-[15px] ez-text-center ez-font-['JetBrainsMono'] ez-text-base ez-font-normal ez-leading-[18px] ez-text-black dark:ez-text-white">
                                                         {loadingError}
                                                     </div>

@@ -154,7 +154,7 @@ export function Connect2IcModal({
                             onClick={onClose}
                         >
                             <Icon
-                                name="icon-close"
+                                name="ez-close"
                                 className="!ez-h-6 !ez-w-6 ez-text-[#d9d9d9] dark:ez-text-[#666]"
                             ></Icon>
                         </div>

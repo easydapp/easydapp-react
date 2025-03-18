@@ -86,7 +86,7 @@ export function ComponentInteractionChooseTipView({
                             <div onClick={onClean}>
                                 <Icon
                                     className="!ez-h-4 !ez-w-4 ez-cursor-pointer ez-text-[#999]"
-                                    name="icon-close"
+                                    name="ez-close"
                                 ></Icon>
                             </div>
                         </div>

@@ -128,13 +128,13 @@ export function InnerComponentFormArrayView({
                                 className="ez-flex ez-cursor-pointer dark:ez-hidden"
                                 onClick={() => onDelete(item.key)}
                             >
-                                <Icon name="icon-reduce" className="!ez-h-11 !ez-w-11"></Icon>
+                                <Icon name="ez-reduce" className="!ez-h-11 !ez-w-11"></Icon>
                             </div>
                             <div
                                 className="ez-hidden ez-cursor-pointer dark:ez-flex"
                                 onClick={() => onDelete(item.key)}
                             >
-                                <Icon name="icon-reduce-dark" className="!ez-h-11 !ez-w-11"></Icon>
+                                <Icon name="ez-reduce-dark" className="!ez-h-11 !ez-w-11"></Icon>
                             </div>
                         </div>
                     ))}
@@ -144,13 +144,13 @@ export function InnerComponentFormArrayView({
                 className="ez-flex ez-w-full ez-cursor-pointer dark:ez-hidden"
                 onClick={onIncrement}
             >
-                <Icon name="icon-push" className="!ez-h-11 !ez-w-11"></Icon>
+                <Icon name="ez-push" className="!ez-h-11 !ez-w-11"></Icon>
             </div>
             <div
                 className="ez-hidden ez-w-full ez-cursor-pointer dark:ez-flex"
                 onClick={onIncrement}
             >
-                <Icon name="icon-push-dark" className="!ez-h-11 !ez-w-11"></Icon>
+                <Icon name="ez-push-dark" className="!ez-h-11 !ez-w-11"></Icon>
             </div>
         </div>
     );

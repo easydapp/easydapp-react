@@ -20,7 +20,7 @@ export function Copied({ value, className }: { value: string; className?: string
             <CopyToClipboard text={value} onCopy={onCopy}>
                 <div className="ez-relative ez-flex">
                     <Icon
-                        name="icon-copy"
+                        name="ez-copy"
                         className={cn(
                             '!ez-h-[12px] !ez-w-[12px] ez-cursor-pointer ez-text-black dark:ez-text-white',
                             className,

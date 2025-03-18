@@ -111,7 +111,7 @@ export function DappStatusContractView({
                     )}
                 >
                     <Icon
-                        name={doing ? 'icon-loading' : 'icon-contracts'}
+                        name={doing ? 'ez-loading' : 'ez-contracts'}
                         className={cn(
                             '!ez-h-[12px] !ez-w-[12px] ez-flex-shrink-0 ez-duration-150',
                             !itemHover
