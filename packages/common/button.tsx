@@ -70,7 +70,7 @@ const Button: React.FC<ButtonProps> = ({
         >
             {loading && (
                 <Icon
-                    name="ez-loading"
+                    name="ez-icon-loading"
                     className="ez-mr-2 !ez-h-[16px] !ez-w-[16px] ez-animate-spin ez-text-white dark:ez-text-[#9bff21]"
                 />
             )}

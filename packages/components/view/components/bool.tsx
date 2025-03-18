@@ -18,7 +18,7 @@ export function InnerBoolView({ value, customStyle }: { value: boolean; customSt
     return (
         <div className="ez-flex ez-w-full ez-flex-col ez-items-center ez-justify-center">
             <div className={cn('ez-h-[44px] ez-w-[44px]')} ref={boolElementRef}>
-                <Icon name={value ? 'ez-ui-true' : 'ez-ui-wrong'} className="!ez-h-[44px] !ez-w-[44px]"></Icon>
+                <Icon name={value ? 'ez-icon-ui-true' : 'ez-icon-ui-wrong'} className="!ez-h-[44px] !ez-w-[44px]"></Icon>
             </div>
 
             <div className="ez-pt-[10px] ez-font-['JetBrainsMono'] ez-text-sm ez-font-medium ez-text-black dark:ez-text-white">

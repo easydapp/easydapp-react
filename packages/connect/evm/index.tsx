@@ -198,7 +198,7 @@ export function Connect2EvmModal({
                             className="ez-absolute ez-right-[10px] ez-top-[10px] ez-h-6 ez-w-6 ez-cursor-pointer"
                             onClick={onClose}>
                             <Icon
-                                name="ez-close"
+                                name="ez-icon-close"
                                 className="!ez-h-6 !ez-w-6 ez-text-[#d9d9d9] dark:ez-text-[#666]"></Icon>
                         </div>
                         <div className="ez-mt-[17px] ez-flex ez-items-center ez-justify-center ez-text-center ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-leading-[18px] ez-text-black dark:ez-text-white">

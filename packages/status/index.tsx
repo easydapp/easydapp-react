@@ -28,7 +28,7 @@ export function DappShareButton({ id }: { id: string }) {
         >
             <a href={`https://easydapp.ai/run/${id}`} target="_blank">
                 <Icon
-                    name="ez-open"
+                    name="ez-icon-open"
                     className={cn(
                         '!ez-h-[12px] !ez-w-[12px] ez-duration-150',
                         isOpenHovered ? 'ez-text-black dark:ez-text-black' : 'ez-text-white dark:ez-text-white',
@@ -58,7 +58,7 @@ export function DappRefreshButton({ onResetInner }: { onResetInner: () => void }
             )}
         >
             <Icon
-                name="ez-refresh"
+                name="ez-icon-refresh"
                 className={cn(
                     '!ez-h-[14px] !ez-w-[14px] ez-duration-150',
                     isResetHovered ? 'ez-text-black dark:ez-text-black' : 'ez-text-white dark:ez-text-white',
@@ -109,7 +109,7 @@ export function DappStatusView({
                 <div className="easydapp-error-slide-in-animation ez-absolute ez-left-0 ez-right-0 ez-top-[50px] ez-z-50 ez-mx-3 ez-rounded-md ez-bg-[#f4f4f4] ez-p-2 dark:ez-bg-black">
                     <div className="ez-flex ez-w-full ez-items-center ez-justify-center ez-gap-2">
                         <Icon
-                            name="ez-ui-wrong"
+                            name="ez-icon-ui-wrong"
                             className="!ez-h-[16px] !ez-w-[16px] ez-cursor-pointer ez-text-black"
                         ></Icon>
 
@@ -120,7 +120,7 @@ export function DappStatusView({
                         <CopyToClipboard text={JSON.stringify(error)}>
                             <div>
                                 <Icon
-                                    name="ez-copy"
+                                    name="ez-icon-copy"
                                     className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"
                                 ></Icon>
                             </div>
@@ -129,7 +129,7 @@ export function DappStatusView({
                         <div onClick={() => setError('')}>
                             <div>
                                 <Icon
-                                    name="ez-close2"
+                                    name="ez-icon-close2"
                                     className="!ez-h-[13px] !ez-w-[13px] ez-cursor-pointer ez-text-black"
                                 ></Icon>
                             </div>
