@@ -33,17 +33,17 @@ importers:
         specifier: ^11.14.0
         version: 11.14.0(@types/react@19.0.10)(react@18.3.1)
       '@jellypack/compiler':
-        specifier: ^0.0.9
-        version: 0.0.9
+        specifier: ^0.0.10
+        version: 0.0.10
       '@jellypack/runtime':
-        specifier: ^0.0.9
-        version: 0.0.9(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^0.0.10
+        version: 0.0.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@jellypack/types':
-        specifier: ^0.0.9
-        version: 0.0.9
+        specifier: ^0.0.10
+        version: 0.0.10
       '@jellypack/wasm-api':
-        specifier: ^0.0.9
-        version: 0.0.9(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+        specifier: ^0.0.10
+        version: 0.0.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       '@rainbow-me/rainbowkit':
         specifier: ^2.2.4
         version: 2.2.4(@tanstack/react-query@5.68.0(react@18.3.1))(@types/react@19.0.10)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(viem@2.23.11(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.3))(wagmi@2.14.13(@tanstack/query-core@5.68.0)(@tanstack/react-query@5.68.0(react@18.3.1))(@types/react@19.0.10)(bufferutil@4.0.9)(react@18.3.1)(typescript@5.8.2)(utf-8-validate@5.0.10)(viem@2.23.11(bufferutil@4.0.9)(typescript@5.8.2)(utf-8-validate@5.0.10)(zod@3.22.3))(zod@3.22.3))
@@ -775,20 +775,20 @@ packages:
     resolution: {integrity: sha512-ZXRY4jNvVgSVQ8DL3LTcakaAtXwTVUxE81hslsyD2AtoXW/wVob10HkOJ1X/pAlcI7D+2YoZKg5do8G/w6RYgA==}
     engines: {node: '>=8'}
 
-  '@jellypack/compiler@0.0.9':
-    resolution: {integrity: sha512-UuQx3dLtkaVvOkvZXKRi7aNSXDAsW/EjbM3Ye0I6qCc6tnZVCcqzh5ofNETlePKPNL9lNEiq67DRJ2eda8ZqPw==}
+  '@jellypack/compiler@0.0.10':
+    resolution: {integrity: sha512-xN27naQWcZ7jhapIF31rWyT0bpPvKeztNQuajM9m0xajZFCfVRTa5YGaHPUMPWInD1L0kd/ZKCJePWzkckeccA==}
 
-  '@jellypack/runtime@0.0.9':
-    resolution: {integrity: sha512-jA4KUP7kencuN4HllBKA3b9WlAC9cv4+5pUszj0mhpRMEEh9qhC63Z8+VUsfmp8QMSF9XaRSIxfhNnFF1XZH4Q==}
+  '@jellypack/runtime@0.0.10':
+    resolution: {integrity: sha512-dQlXe78/wUxBJwhR6zmSOp9IA2yX9wVP1OdoLNUfqrPzPvQLnzlS1+ztBDxSvlxairc+g80XV5Ltjb5Tm4CfwA==}
 
-  '@jellypack/types@0.0.9':
-    resolution: {integrity: sha512-FW0S0yMRcR+WAReesGxu2H747EOp5wF02wh2HqOSwZmbUP2u95L3+BeJqb34ov/FHHIrH/FvKqd+0b15kO/oqw==}
+  '@jellypack/types@0.0.10':
+    resolution: {integrity: sha512-BxmBwxFluYf7cEwCsSnN0oYeQ1BvxsZxEeu+hqdI75f3Qo9oyAa4KktN7Qyd4qepR/c4vtxX6XchfvniqBWWew==}
 
-  '@jellypack/wasm-api@0.0.9':
-    resolution: {integrity: sha512-1C/UYxCk6pz8k7/F9RNKuW45rOrXHBCSTFWfz0Tpq6JkGsDPO2k1bkicJoUNp3v/wV7r6te5A3R8pgZZs74gjA==}
+  '@jellypack/wasm-api@0.0.10':
+    resolution: {integrity: sha512-LXz4R0HOc7QbJLZp1y5m009pPWtfqlu4Moms5F6yT7lcyWkHa32ib8KjiVL0VIxQKeqKoqiU18msju6o/hWlOg==}
 
-  '@jellypack/wasm@0.0.9':
-    resolution: {integrity: sha512-eDnlvnZhScezhN9kL0/Gg+YMmHELcg2+R3uIpoQScZD1uIDEWAaqFCJRPYrQjXBSDXZ0LtiVCPh6Kn5rfzztQw==}
+  '@jellypack/wasm@0.0.10':
+    resolution: {integrity: sha512-VcSleyQIbUg62aHR2BOtuUlLi3/zUo7nuyjlYy/uePLOGoXBL5GBYNMG1vhmWiWsPD47gikCx/5gVOe+rlp/+g==}
 
   '@jest/console@29.7.0':
     resolution: {integrity: sha512-5Ni4CU7XHQi32IJ398EEP4RrB8eV09sXP2ROqD4bksHrnTree52PsxvX8tpL8LvTZ3pFzXyPbNQReSN41CAhOg==}
@@ -5350,14 +5350,14 @@ snapshots:
 
   '@istanbuljs/schema@0.1.3': {}
 
-  '@jellypack/compiler@0.0.9':
+  '@jellypack/compiler@0.0.10':
     dependencies:
-      '@jellypack/types': 0.0.9
+      '@jellypack/types': 0.0.10
       esbuild-wasm: 0.25.1
       eslint-linter-browserify: 9.22.0
       lodash: 4.17.21
 
-  '@jellypack/runtime@0.0.9(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@jellypack/runtime@0.0.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@aws-crypto/sha256-js': 5.2.0
       '@choptop/haw': 0.0.13
@@ -5365,7 +5365,7 @@ snapshots:
       '@dfinity/candid': 2.3.0(@dfinity/principal@2.3.0)
       '@dfinity/identity': 2.3.0(@dfinity/agent@2.3.0(@dfinity/candid@2.3.0(@dfinity/principal@2.3.0))(@dfinity/principal@2.3.0))(@dfinity/principal@2.3.0)
       '@dfinity/principal': 2.3.0
-      '@jellypack/types': 0.0.9
+      '@jellypack/types': 0.0.10
       bs58: 6.0.0
       ethers: 6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       lodash: 4.17.21
@@ -5374,17 +5374,17 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@jellypack/types@0.0.9':
+  '@jellypack/types@0.0.10':
     dependencies:
       '@dfinity/principal': 2.3.0
       lodash: 4.17.21
 
-  '@jellypack/wasm-api@0.0.9(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
+  '@jellypack/wasm-api@0.0.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)':
     dependencies:
       '@choptop/haw': 0.0.13
-      '@jellypack/runtime': 0.0.9(bufferutil@4.0.9)(utf-8-validate@5.0.10)
-      '@jellypack/types': 0.0.9
-      '@jellypack/wasm': 0.0.9
+      '@jellypack/runtime': 0.0.10(bufferutil@4.0.9)(utf-8-validate@5.0.10)
+      '@jellypack/types': 0.0.10
+      '@jellypack/wasm': 0.0.10
       bs58: 6.0.0
       ethers: 6.13.5(bufferutil@4.0.9)(utf-8-validate@5.0.10)
       lodash: 4.17.21
@@ -5393,7 +5393,7 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  '@jellypack/wasm@0.0.9': {}
+  '@jellypack/wasm@0.0.10': {}
 
   '@jest/console@29.7.0':
     dependencies:
