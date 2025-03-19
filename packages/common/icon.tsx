@@ -260,7 +260,7 @@ const Copy = ({ className }: { className?: string }) => {
     );
 };
 
-const iconMap = {
+const iconMap: Record<string, React.FC<{ className?: string }>> = {
     'ez-icon-contracts': Contracts,
     'ez-icon-ui-wrong': UiWrong,
     'ez-icon-ui-true': UiTrue,
