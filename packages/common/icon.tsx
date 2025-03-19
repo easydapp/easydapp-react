@@ -5,7 +5,7 @@ export interface IconProps {
     className?: string;
 }
 
-const Contracts = ({ className }) => {
+const Contracts = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -27,7 +27,7 @@ const Contracts = ({ className }) => {
     );
 };
 
-const UiWrong = ({ className }) => {
+const UiWrong = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -46,7 +46,7 @@ const UiWrong = ({ className }) => {
     );
 };
 
-const UiTrue = ({ className }) => {
+const UiTrue = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -65,7 +65,7 @@ const UiTrue = ({ className }) => {
     );
 };
 
-const Loading = ({ className }) => {
+const Loading = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -88,7 +88,7 @@ const Loading = ({ className }) => {
     );
 };
 
-const Open = ({ className }) => {
+const Open = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -106,7 +106,7 @@ const Open = ({ className }) => {
     );
 };
 
-const Reduce = ({ className }) => {
+const Reduce = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -124,7 +124,7 @@ const Reduce = ({ className }) => {
     );
 };
 
-const ReduceDark = ({ className }) => {
+const ReduceDark = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -144,7 +144,7 @@ const ReduceDark = ({ className }) => {
     );
 };
 
-const Push = ({ className }) => {
+const Push = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -162,7 +162,7 @@ const Push = ({ className }) => {
     );
 };
 
-const PushDark = ({ className }) => {
+const PushDark = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -183,7 +183,7 @@ const PushDark = ({ className }) => {
     );
 };
 
-const Refresh = ({ className }) => {
+const Refresh = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -201,7 +201,7 @@ const Refresh = ({ className }) => {
     );
 };
 
-const Close = ({ className }) => {
+const Close = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -219,7 +219,7 @@ const Close = ({ className }) => {
     );
 };
 
-const Close2 = ({ className }) => {
+const Close2 = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
@@ -238,7 +238,7 @@ const Close2 = ({ className }) => {
     );
 };
 
-const Copy = ({ className }) => {
+const Copy = ({ className }: { className?: string }) => {
     return (
         <svg
             className={className}
