@@ -197,7 +197,7 @@ function InnerDappStatusView({
                         )}
 
                         <Icon
-                            name="ez-contracts"
+                            name="ez-icon-contracts"
                             className={cn(
                                 '!ez-h-[12px] !ez-w-[12px] ez-duration-150',
                                 emptyHover ? 'ez-text-black dark:ez-text-black' : 'ez-text-white dark:ez-text-white',
