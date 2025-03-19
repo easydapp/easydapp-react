@@ -1,10 +1,10 @@
 {
   "id": 479064326783727,
   "name": "easydapp",
-  "font_class": "icon-",
+  "font_class": "ez-icon-",
   "font_family": "iconfont",
   "url": "https://codesign.qq.com/app/icon/479064326783727/detail",
-  "icons_count": 89,
+  "icons_count": 91,
   "icons": [
     {
       "id": 479030736798279,
@@ -806,6 +806,24 @@
       "unicode": "e06a",
       "unicode_decimal": 57450,
       "section": "identity-icon"
+    },
+    {
+      "id": 532513046317057,
+      "name": "hashkey2",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" viewBox=\"0 0 50 50\" class=\"design-iconfont\">\n  <path d=\"M50 25C50 38.8071 38.8071 50 25 50C11.1929 50 0 38.8071 0 25C0 11.1929 11.1929 0 25 0C38.8071 0 50 11.1929 50 25Z\" fill=\"#18181B\"></path>\n  <path d=\"M22 22H28V28H22V22Z\" fill=\"#BF2E8E\"></path>\n  <path d=\"M28 22L22 28V22H28Z\" fill=\"#CC529F\"></path>\n  <path d=\"M19.5 14L13 12V38.5L19.5 37V14Z\" fill=\"#fff\"></path>\n  <path d=\"M30 14L36.5 12V38.5L30 37V14Z\" fill=\"#fff\"></path>\n</svg>",
+      "class_name": "hashkey2",
+      "unicode": "e082",
+      "unicode_decimal": 57474,
+      "section": "easydapp-icon"
+    },
+    {
+      "id": 532851760414155,
+      "name": "hashkey",
+      "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" class=\"sbi0at29h__design-iconfont\">\n  <path d=\"M20,0 C22.2091,0 24,1.79086 24,4 L24,20 C24,22.2091 22.2091,24 20,24 L4,24 C1.79086,24 0,22.2091 0,20 L0,4 C0,1.79086 1.79086,0 4,0 Z M5,5 L5,19 L8.5,18 L8.5,6 L5,5 Z M19,5 L15.5,6 L15.5,18 L19,19 L19,5 Z M13.5,10 L10.5,10 L10.5,13 L13.5,13 L13.5,10 Z\" fill=\"currentColor\" fill-rule=\"evenodd\"></path>\n</svg>",
+      "class_name": "hashkey",
+      "unicode": "e085",
+      "unicode_decimal": 57477,
+      "section": "easydapp-icon"
     }
   ]
 }

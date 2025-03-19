@@ -264,7 +264,7 @@ export function CombinedView({
                 <>
                     {loadingError && (
                         <div className="ez-mt-[120px] ez-flex ez-h-full ez-w-full ez-flex-col ez-items-center ez-justify-center">
-                            <Icon name="icon-ui-wrong" className="!ez-h-[66px] !ez-w-[66px]" />
+                            <Icon name="ez-icon-ui-wrong" className="!ez-h-[66px] !ez-w-[66px]" />
                             <div className="ez-mt-[15px] ez-text-center ez-font-['JetBrainsMono'] ez-text-base ez-font-normal ez-leading-[18px] ez-text-black dark:ez-text-white">
                                 {loadingError}
                             </div>

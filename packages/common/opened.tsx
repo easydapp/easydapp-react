@@ -10,7 +10,7 @@ export function Opened({ url, className }: { url: string; className?: string }) 
                     '!ez-h-[12px] !ez-w-[12px] ez-cursor-pointer ez-text-black dark:ez-text-white',
                     className,
                 )}
-                name="icon-open"
+                name="ez-icon-open"
             ></Icon>
         </a>
     );
