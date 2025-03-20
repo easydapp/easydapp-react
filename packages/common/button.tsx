@@ -1,4 +1,5 @@
-import React, { CSSProperties, MouseEventHandler, useEffect, useState } from 'react';
+import React, { CSSProperties, MouseEventHandler, useMemo, useState } from 'react';
+
 import Icon from './icon';
 import { cn } from './utils';
 
@@ -20,34 +21,30 @@ const Button: React.FC<ButtonProps> = ({
     buttonText,
 }) => {
     const [isHover, setIsHover] = useState<boolean>(false);
+    const theme = localStorage.getItem('__ez-dapp-theme');
 
-    const [styles, setStyles] = useState<CSSProperties>();
+    const processedStyle = useMemo(() => {
+        if (!style) return;
 
-    useEffect(() => {
-        if (style) {
-            const newStyle = style;
+        const newStyle = { ...style };
 
-            const theme = localStorage.getItem('__ez-dapp-theme');
-
-            if (theme === 'dark' && style?.backgroundColor === '#000000') {
+        if (theme === 'dark') {
+            if (style.backgroundColor === '#000000') {
                 newStyle.backgroundColor = '#9BFF21';
-
-                if (styles?.color === '#9BFF21') {
-                    newStyle.color = '#000000';
-                }
+                newStyle.color = style.color === '#9BFF21' || style.color === '#ffffff' ? '#000000' : newStyle.color;
+            } else if (newStyle.backgroundColor === '#9BFF21') {
+                newStyle.color = style.color === '#9BFF21' || style.color === '#ffffff' ? '#000000' : newStyle.color;
             }
-
-            if (theme === 'light' && style?.backgroundColor === '#ffffff') {
-                newStyle.backgroundColor = '#000000';
-
-                if (styles?.color === '#ffffff') {
-                    newStyle.color = '#000000';
-                }
-            }
-
-            setStyles(newStyle);
         }
-    }, [style, styles]);
+
+        if (theme === 'light') {
+            if (style.backgroundColor === '#000000') {
+                newStyle.color = style.color === '#000000' ? '#ffffff' : newStyle.color;
+            }
+        }
+
+        return newStyle;
+    }, [style, theme]);
 
     return (
         <div
@@ -62,7 +59,7 @@ const Button: React.FC<ButtonProps> = ({
             onMouseLeave={() => setIsHover(false)}
             onClick={!disabled && !loading ? onClick : undefined} // Prevent click if disabled or loading
             style={
-                styles || {
+                processedStyle || {
                     borderRadius: '0.5rem',
                     fontWeight: '400',
                 }
