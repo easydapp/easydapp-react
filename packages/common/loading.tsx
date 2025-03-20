@@ -17,12 +17,12 @@ export function LoadingSkeleton() {
                     <ContentLoader speed={2} width="100%" height={'30'}>
                         <rect x="0" y="0" rx="5" ry="5" width="100%" height="100%" />
                     </ContentLoader>
-                    <ContentLoader speed={2} width="100%" height={'40'}>
+                    {/* <ContentLoader speed={2} width="100%" height={'40'}>
                         <rect x="0" y="0" rx="5" ry="5" width="100%" height="100%" />
-                    </ContentLoader>
-                    <ContentLoader speed={2} width="100%" height={'50'}>
+                    </ContentLoader> */}
+                    {/* <ContentLoader speed={2} width="100%" height={'50'}>
                         <rect x="0" y="0" rx="5" ry="5" width="100%" height="100%" />
-                    </ContentLoader>
+                    </ContentLoader> */}
                 </div>
             </div>
         </>

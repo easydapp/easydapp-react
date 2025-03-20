@@ -1,5 +1,6 @@
 # pnpm-lock.yaml
 *.tsbuildinfo
+bundle/
 
 # Logs
 logs
