@@ -34,32 +34,34 @@ const load_popup = () => {
     css_link.href = `${host}${CSS_NAME}`;
     document.head.appendChild(css_link);
 
-    // 3. insert popup
-    const button = document.createElement('button');
-    button.id = 'easydapp-popup-button';
-    button.innerHTML = `<img src="${LOGO_DATA}" />`;
-    document.body.appendChild(button);
+    css_link.onload = () => {
+        // 3. insert popup
+        const button = document.createElement('button');
+        button.id = 'easydapp-popup-button';
+        button.innerHTML = `<img src="${LOGO_DATA}" />`;
+        document.body.appendChild(button);
 
-    const popup = document.createElement('div');
-    popup.id = 'easydapp-popup';
-    document.body.appendChild(popup);
+        const popup = document.createElement('div');
+        popup.id = 'easydapp-popup';
+        document.body.appendChild(popup);
 
-    button.addEventListener('click', () => {
-        const display = popup.style.display;
-        if (display === 'block') {
-            popup.style.display = 'none';
-            return;
-        }
-        if (display === 'none') {
+        button.addEventListener('click', () => {
+            const display = popup.style.display;
+            if (display === 'block') {
+                popup.style.display = 'none';
+                return;
+            }
+            if (display === 'none') {
+                popup.style.display = 'block';
+                return;
+            }
+
+            // init
             popup.style.display = 'block';
-            return;
-        }
-
-        // init
-        popup.style.display = 'block';
-        const root = createRoot(popup);
-        root.render(<LinkDappView id={id} />);
-    });
+            const root = createRoot(popup);
+            root.render(<LinkDappView id={id} />);
+        });
+    };
 };
 
 window.addEventListener('load', load_popup);
