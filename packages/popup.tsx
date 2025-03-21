@@ -48,7 +48,7 @@ const load_popup = () => {
 
         const CLOSE_BTN_DOM = `
             <div class='btn'>
-                <img class="close_data" src="${close_url}" />
+                <img class="close-data" src="${close_url}" />
             </div>
         `;
 
