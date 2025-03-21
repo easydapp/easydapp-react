@@ -1,5 +1,4 @@
 import { parse_param } from '@jellypack/runtime/lib/common/query';
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 
 import { LinkDappView } from '.';

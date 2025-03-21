@@ -1,6 +1,8 @@
 # pnpm-lock.yaml
 *.tsbuildinfo
 bundle/
+examples/easydapp-popup.umd.js
+examples/react.css
 
 # Logs
 logs

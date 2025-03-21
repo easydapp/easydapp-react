@@ -17,7 +17,7 @@
         "build": "tsc -b && vite build -c vite.frontend.config.ts",
         "package": "tsc -b && vite build",
         "bundle": "tsc -b && vite build -c vite.bundle.config.ts",
-        "watch": "nodemon --exec 'pnpm run bundle && cp -r bundle/* examples' --watch packages/popup.tsx --ext [ts,scss]",
+        "watch": "nodemon --exec 'pnpm run bundle && cp -r bundle/easydapp-popup.umd.js examples && cp -r bundle/react.css examples' --watch packages/popup.tsx --ext [ts,scss]",
         "lint": "eslint ./packages",
         "preview": "vite preview",
         "preversion": "npm run lint && npm run build && npm run package",
