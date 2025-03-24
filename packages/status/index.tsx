@@ -88,6 +88,8 @@ export function DappStatusView({
     setError: (error?: string) => void;
     query_api?: (anchor: ApiDataAnchor) => Promise<ApiData | undefined>;
 }) {
+    const [isHover, setIsHover] = useState<boolean>(false);
+
     return (
         <div className="ez-relative ez-flex ez-h-[38px] ez-w-full">
             <div className="ez-flex ez-w-full ez-items-center ez-justify-between ez-px-2">
@@ -106,14 +108,23 @@ export function DappStatusView({
             </div>
 
             {error && (
-                <div className="easydapp-error-slide-in-animation ez-absolute ez-left-0 ez-right-0 ez-top-[50px] ez-z-50 ez-mx-3 ez-rounded-md ez-bg-[#f4f4f4] ez-p-2 dark:ez-bg-black">
+                <div
+                    className="easydapp-error-slide-in-animation ez-absolute ez-left-0 ez-right-0 ez-top-[50px] ez-z-50 ez-mx-3 ez-rounded-md ez-bg-[#f4f4f4] ez-p-2 dark:ez-bg-black"
+                    onMouseEnter={() => setIsHover(true)}
+                    onMouseLeave={() => setIsHover(false)}
+                >
                     <div className="ez-flex ez-w-full ez-items-center ez-justify-center ez-gap-2">
                         <Icon
                             name="ez-icon-ui-wrong"
                             className="!ez-h-[16px] !ez-w-[16px] ez-cursor-pointer ez-text-black"
                         ></Icon>
 
-                        <div className="ez-flex-1 ez-truncate ez-text-left ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-text-black dark:ez-text-white">
+                        <div
+                            className={cn(
+                                "ez-flex-1 ez-text-left ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-text-black dark:ez-text-white",
+                                !isHover && 'ez-truncate',
+                            )}
+                        >
                             {error}
                         </div>
 
