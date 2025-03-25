@@ -22,7 +22,7 @@ const load_popup = () => {
         return '';
     })();
     const [host, query] = script_src.split(SCRIPT_NAME);
-    const { id, title } = parse_param(query);
+    const { id, title, eventBtnId } = parse_param(query);
 
     if (!script_src || !host || !id) {
         console.debug('can not find host and id from script src: ', script_src);
@@ -53,10 +53,20 @@ const load_popup = () => {
         `;
 
         // 3. insert popup
-        const button = document.createElement('button');
-        button.id = 'easydapp-popup-button';
-        button.innerHTML = LOGO_BTN_DOM;
-        document.body.appendChild(button);
+        let button;
+
+        if (!eventBtnId) {
+            button = document.createElement('button');
+            button.id = 'easydapp-popup-button';
+            button.innerHTML = LOGO_BTN_DOM;
+            document.body.appendChild(button);
+        } else {
+            button = document.getElementById(eventBtnId);
+        }
+
+        if (!button) {
+            throw new Error(`can not find button: ${eventBtnId}`);
+        }
 
         const popup = document.createElement('div');
         popup.id = 'easydapp-popup';
@@ -67,19 +77,25 @@ const load_popup = () => {
 
             if (display === 'block') {
                 popup.style.display = 'none';
-                button.innerHTML = LOGO_BTN_DOM;
+                if (!eventBtnId) {
+                    button.innerHTML = LOGO_BTN_DOM;
+                }
                 return;
             }
 
             if (display === 'none') {
                 popup.style.display = 'block';
-                button.innerHTML = CLOSE_BTN_DOM;
+                if (!eventBtnId) {
+                    button.innerHTML = CLOSE_BTN_DOM;
+                }
                 return;
             }
 
             // init
             popup.style.display = 'block';
-            button.innerHTML = CLOSE_BTN_DOM;
+            if (!eventBtnId) {
+                button.innerHTML = CLOSE_BTN_DOM;
+            }
             const root = createRoot(popup);
             root.render(<LinkDappView id={id} />);
         });
