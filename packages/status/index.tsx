@@ -121,7 +121,7 @@ export function DappStatusView({
 
                         <div
                             className={cn(
-                                "ez-flex-1 ez-text-left ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-text-black dark:ez-text-white",
+                                "ez-flex-1 ez-break-all ez-text-left ez-font-['JetBrainsMono'] ez-text-base ez-font-medium ez-text-black dark:ez-text-white",
                                 !isHover && 'ez-truncate',
                             )}
                         >
