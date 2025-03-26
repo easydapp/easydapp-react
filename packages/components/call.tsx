@@ -67,8 +67,8 @@ export function ComponentCallView({
         loading: () => <></>,
         clock: () => <></>,
         click: (click) => {
-            if (runtime.find_value(link, 0)?.value !== undefined) return <></>; // If already have a value, you do not display the button
             if (click.text && text === undefined) return <></>;
+            if (runtime.find_value(link, 0)?.value !== undefined && !loading) return <></>; // If already have a value, you do not display the button
             // TODO When calling, should change the interface loading
             return <Button loading={loading} onClick={onTrigger} buttonText={text ?? 'Call'}></Button>;
         },
